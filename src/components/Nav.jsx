@@ -90,7 +90,7 @@ function Nav() {
         className="inline-flex sm:hidden"
       >
         <MenuIcon
-          className="inline-flex sm:hidden"
+          className="inline-flex sm:!hidden"
           fontSize="large"
           color="primary"
         />
