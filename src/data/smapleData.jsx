@@ -1,0 +1,1 @@
+export const sample1 = <h1>lorem1000</h1>

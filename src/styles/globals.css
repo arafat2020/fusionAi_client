@@ -1,27 +1,119 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap");
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@layer components {
+  .robo {
+    font-family: "Bruno Ace SC", cursive;
+  }
+
+  .glassBg {
+    /* From https://css.glass */
+    background: rgba(125, 111, 111, 0.29);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+    border: 1px solid rgba(125, 111, 111, 0.3);
+  }
+  .glassBg2 {
+    /* From https://css.glass */
+    background: url("../../public/logo.jpg") center no-repeat;
+    /* border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+    border: 1px solid rgba(125, 111, 111, 0.3); */
+  }
+  .glassBg3 {
+    /* From https://css.glass */
+    background: rgba(74, 66, 66, 0.64);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10.6px);
+    -webkit-backdrop-filter: blur(10.6px);
+    border: 1px solid rgba(74, 66, 66, 0.3);
+  }
+  .gcolor {
+    background: -webkit-linear-gradient(#eee, rgb(85, 85, 185));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+.LazyLoad {
+  opacity: 0;
+  
+  transition: all .6s ease-in-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.is-visible {
+  opacity: 1;
+  
+}
+.overlay{
+  transition: .4s;
+}
+
+.card:hover .overlay{
+  transform: scale(1);
+}
+.grid-Wraper{
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  grid-auto-rows: 250px;
+  grid-auto-rows: dense;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px,1fr));
+  grid-gap: 1rem;
+  grid-auto-rows: 100px;
+}
+.card2{
+  width: 0;
+  height:0;
+}
+.card2:hover{
+  width: 100%;
+  height:100%;
+}
+@media screen and (min-width:550px){
+  .grid_wide{
+    grid-column: span 3 / auto;
+    grid-row: span 2 / auto ;
+  }
+  .grid_tall{
+    grid-column: span 2 / auto;
+    grid-row: span 3 / auto ;
+  }
+  .grid_wide2{
+    grid-column: span 4 / auto;
+    grid-row: span 3 / auto ;
+  }
+  .grid_tall2{
+    grid-column: span 3 / auto;
+    grid-row: span 4 / auto ;
+  }
+}
+@media screen and (max-width:549px){
+  .grid_wide{
+    grid-column: span 2 / auto;
+    grid-row: span 2 / auto ;
+  }
+  .grid_tall{
+    grid-column: span 2 / auto;
+    grid-row: span 2 / auto ;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper{
+background: rgba(40, 31, 31, 0.63);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(40, 31, 31, 0.3);
 }
