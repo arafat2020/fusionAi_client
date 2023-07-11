@@ -110,10 +110,10 @@
 }
 
 .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper{
-background: rgba(40, 31, 31, 0.63);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);
-border: 1px solid rgba(40, 31, 31, 0.3);
+background: rgba(40, 31, 31, 0.63) !important;
+border-radius: 16px !important;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+backdrop-filter: blur(5px) !important;
+-webkit-backdrop-filter: blur(5px) !important;
+border: 1px solid rgba(40, 31, 31, 0.3) !important;
 }

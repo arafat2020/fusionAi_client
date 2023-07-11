@@ -93,7 +93,7 @@ function Me() {
         <Button
           onClick={() => setopen(() => !open)}
           variant="outlined"
-          className="absolute right-4 bottom-4"
+          className="!absolute right-4 bottom-4"
           endIcon={<AddAPhotoIcon />}
         >
           Add Art

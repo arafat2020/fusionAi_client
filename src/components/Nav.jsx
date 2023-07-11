@@ -87,7 +87,7 @@ function Nav() {
         onClick={(e) => {
           setAnchorEl(e.currentTarget);
         }}
-        className="inline-flex sm:hidden"
+        className="inline-flex sm:!hidden"
       >
         <MenuIcon
           className="inline-flex sm:!hidden"
@@ -162,7 +162,7 @@ function Nav() {
         <MenuItem>
           <Button
             onClick={() => dispatch(removeUser())}
-            className={`font-bold ${me===null && 'hidden'}`}
+            className={`font-bold ${me===null && '!hidden'}`}
             variant="outlined"
             color="primary"
             startIcon={<LogoutIcon />}
