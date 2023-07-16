@@ -1,4 +1,4 @@
-import { fetchPost, loading, reasult } from "@/provider/features/termslice";
+import { fetchPost, loading, reasult } from "../provider/features/termslice";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

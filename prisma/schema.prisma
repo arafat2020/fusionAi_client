@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Art {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  CFGscale       Int
+  Clip_skip      Int
+  Sampler        String
+  Seed           Int
+  Steps          Int
+  artistId       String  @db.ObjectId
+  chackPoint     String
+  height         Int
+  hide           Boolean
+  img            String
+  lora           String
+  negetivePrompt String
+  nsfw           Boolean
+  prompt         String
+  tag            String
+  width          Int
+}
+
+model Artist {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  about      String
+  email      String   @unique
+  joinedAt   DateTime @db.Date
+  name       String   @unique
+  password   String
+  profilePic String
+}
+
+model Comment {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model Favourite {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model React {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  artId    String @db.ObjectId
+  artistId String @db.ObjectId
+  type     String
+}

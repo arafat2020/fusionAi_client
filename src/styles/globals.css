@@ -86,8 +86,8 @@
     grid-row: span 2 / auto ;
   }
   .grid_tall{
-    grid-column: span 2 / auto;
-    grid-row: span 3 / auto ;
+    grid-column: span 3 / auto;
+    grid-row: span 2 / auto ;
   }
   .grid_wide2{
     grid-column: span 4 / auto;
@@ -100,12 +100,12 @@
 }
 @media screen and (max-width:549px){
   .grid_wide{
-    grid-column: span 2 / auto;
-    grid-row: span 2 / auto ;
+    grid-column: span 1 / auto;
+    grid-row: span 1 / auto ;
   }
   .grid_tall{
-    grid-column: span 2 / auto;
-    grid-row: span 2 / auto ;
+    grid-column: span 1 / auto;
+    grid-row: span 1 / auto ;
   }
 }
 

@@ -1,4 +1,4 @@
-import { status, user } from "@/provider/features/userClice";
+import { status, user } from "../../provider/features/userClice";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";

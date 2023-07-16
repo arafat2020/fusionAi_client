@@ -1,7 +1,7 @@
-import GellaryIndex from "@/components/GellaryIndex";
-import Main from "@/components/Main";
-import Loader2 from "@/components/loder/Loader2";
-import usePost from "@/hooks/usePost";
+import GellaryIndex from "../components/GellaryIndex";
+import Main from "../components/Main";
+import Loader2 from "../components/loder/Loader2";
+import usePost from "../hooks/usePost";
 import { useRouter } from "next/router";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";

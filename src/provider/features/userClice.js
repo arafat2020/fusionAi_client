@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/lib/deplument";
+import { axiosInstance } from "../../lib/deplument";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -53,6 +53,7 @@ const userSlice = createSlice({
   initialState: {
     user: null,
     status: "idle",
+    error:null
   },
   reducers: {
     setUser: (state, action) => {
@@ -63,6 +64,9 @@ const userSlice = createSlice({
       state.user = null;
       state.status ='idle'
     },
+    cleareUserErr:(state)=>{
+      state.error = null
+    }
   },
   extraReducers: (builder) => {
     // register builder start
@@ -84,6 +88,7 @@ const userSlice = createSlice({
     });
     builder.addCase(login.rejected, (state, action) => {
       state.status = "failed";
+      state.error = action.error.message
       state.user = null;
     });
     builder.addCase(login.fulfilled, (state, action) => {
@@ -108,9 +113,10 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, removeUser } = userSlice.actions;
+export const { setUser, removeUser,cleareUserErr } = userSlice.actions;
 export const userReducer = userSlice.reducer;
 export const user = (state) => state.user.user;
 export const token = (state) => state.user.user?.token
 export const userToken = (state) => state.user.user.token;
 export const status = (state) => state.user.status;
+export const userError = (state) => state.user.error;

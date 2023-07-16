@@ -3,9 +3,10 @@ import TextField from "@mui/material/TextField";
 import { Button, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setNotification } from "@/provider/features/notifySlice";
+import { setNotification } from "../provider/features/notifySlice";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-import { initialLoad, login, status, user } from "@/provider/features/userClice";
+import GppBadIcon from '@mui/icons-material/GppBad';
+import { cleareUserErr, initialLoad, login, status, user, userError } from "../provider/features/userClice";
 import { useRouter } from "next/router";
 
 function LoginForm() {
@@ -14,6 +15,7 @@ function LoginForm() {
   const dispatch = useDispatch();
   const me = useSelector(user);
   const st = useSelector(status);
+  const usererror = useSelector(userError);
   const router = useRouter();
   useEffect(() => {
     async function loader(params) {
@@ -40,6 +42,20 @@ function LoginForm() {
       })
     );
   };
+  useEffect(()=>{
+    if (st !== "failed") return
+     async function load(){
+      await dispatch(
+        setNotification({
+          msg: usererror,
+          icon: <GppBadIcon />,
+          open: true,
+        })
+      );
+      dispatch(cleareUserErr())
+    }
+    load()
+  },[st])
   return (
     <div className="space-y-5 flex flex-col items-center">
       <TextField

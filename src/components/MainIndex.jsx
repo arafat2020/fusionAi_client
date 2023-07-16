@@ -4,13 +4,13 @@ import {
   fetchPost,
   loading,
   reasult,
-} from "@/provider/features/termslice";
+} from "../provider/features/termslice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader2 from "./loder/Loader2";
 import Card2 from "./Card2";
 import LockPersonIcon from '@mui/icons-material/LockPerson';
-import { setNotification } from "@/provider/features/notifySlice";
+import { setNotification } from "../provider/features/notifySlice";
 
 
 function MainIndex() {

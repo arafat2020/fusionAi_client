@@ -1,5 +1,5 @@
-import { axiosInstance } from "@/lib/deplument";
-import { findAndReplace } from "@/provider/features/termslice";
+import { axiosInstance } from "../lib/deplument";
+import { findAndReplace } from "../provider/features/termslice";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 

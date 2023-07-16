@@ -1,4 +1,4 @@
-import { clearModel, modelComponent, openModel, title } from '@/provider/features/modelSlice'
+import { clearModel, modelComponent, openModel, title } from '../provider/features/modelSlice'
 import { Dialog, DialogTitle } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'

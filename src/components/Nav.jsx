@@ -3,11 +3,11 @@ import Logo from "./Logo";
 import SearchIcon from "@mui/icons-material/Search";
 import LoginIcon from "@mui/icons-material/Login";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser, status, user } from "@/provider/features/userClice";
-import { truncateString } from "@/lib/truncate";
+import { removeUser, status, user } from "../provider/features/userClice";
+import { truncateString } from "../lib/truncate";
 import { Button, IconButton, Menu, MenuItem, Skeleton } from "@mui/material";
 import { useRouter } from "next/router";
-import { clearTerm, setTerm, term } from "@/provider/features/termslice";
+import { clearTerm, setTerm, term } from "../provider/features/termslice";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 
@@ -25,7 +25,7 @@ function Nav() {
   console.log(anchorEl);
 
   return (
-    <nav className="w-[100%] h-[10%] bg-black flex items-center justify-around">
+    <nav id="nav" className="w-[100%] h-[10%] bg-black flex items-center justify-around">
       <div
         onClick={() => router.push("/")}
         className="flex space-x-2 items-center cursor-pointer"

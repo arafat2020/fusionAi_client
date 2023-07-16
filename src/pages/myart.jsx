@@ -1,12 +1,12 @@
-import Main from "@/components/Main";
+import Main from "../components/Main";
 import { useRouter } from "next/router";
 import React from "react";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import usePrivetpost from "@/hooks/usePrivetPost";
-import GellaryIndex from "@/components/GellaryIndex";
-import Loader2 from "@/components/loder/Loader2";
-import Details from "@/components/Details";
+import usePrivetpost from "../hooks/usePrivetPost";
+import GellaryIndex from "../components/GellaryIndex";
+import Loader2 from "../components/loder/Loader2";
+import Details from "../components/Details";
 
 
 function Myart() {

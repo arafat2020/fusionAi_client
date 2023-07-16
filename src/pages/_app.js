@@ -1,12 +1,14 @@
-import Model from "@/components/Model";
-import Nav from "@/components/Nav";
-import Notice from "@/components/Notice";
-import store from "@/provider/store/store";
-import "@/styles/globals.css";
+
+import Nav from "../components/Nav";
+import Model from "../components/Model";
+import Notice from "../components/Notice";
+import store from "../provider/store/store";
+import "../styles/globals.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
+
 
 export default function App({ Component, pageProps }) {
   const [orgin, setorgin] = useState();

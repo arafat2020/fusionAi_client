@@ -1,7 +1,7 @@
-import { loading } from '@/provider/features/myartSlice';
-import { fetchMyPost } from '@/provider/features/myartSlice';
-import { myart } from '@/provider/features/myartSlice';
-import { token } from '@/provider/features/userClice';
+import { loading } from '../provider/features/myartSlice';
+import { fetchMyPost } from '../provider/features/myartSlice';
+import { myart } from '../provider/features/myartSlice';
+import { token } from '../provider/features/userClice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

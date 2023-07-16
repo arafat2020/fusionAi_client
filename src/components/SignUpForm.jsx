@@ -1,10 +1,10 @@
-import { setNotification } from "@/provider/features/notifySlice";
+import { setNotification } from "../provider/features/notifySlice";
 import { CircularProgress, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-import { initialLoad, register, status, user } from "@/provider/features/userClice";
+import { initialLoad, register, status, user } from "../provider/features/userClice";
 import { useRouter } from "next/router";
 
 function SignUpForm() {
@@ -65,7 +65,7 @@ const router = useRouter()
     );
   }
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 text-center">
       <div className="flex space-x-3">
         <TextField
           onChange={(e) => setname(e.target.value)}
@@ -152,7 +152,7 @@ const router = useRouter()
         onClick={submitter}
         className="bg-blue-800 rounded-md px-3 py-1 text-slate-300 font-sans font-medium text-xl"
       >
-               {st === "pending" ? <CircularProgress /> : "Login"}
+               {st === "pending" ? <CircularProgress /> : "Signup"}
                
       </button>
     </div>

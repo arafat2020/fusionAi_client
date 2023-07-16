@@ -1,5 +1,5 @@
-import Main from "@/components/Main";
-import MeIndex from "@/components/MeIndex";
+import Main from "../components/Main";
+import MeIndex from "../components/MeIndex";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { Button, CircularProgress, TextField } from "@mui/material";
 import Input from "@mui/joy/Input";
@@ -9,15 +9,15 @@ import React, { useEffect, useState } from "react";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useDispatch, useSelector } from "react-redux";
-import { token } from "@/provider/features/userClice";
+import { token } from "../provider/features/userClice";
 import {
   clearErr,
   createMyArt,
   err,
   loading,
   status,
-} from "@/provider/features/myartSlice";
-import { notify, setNotification } from "@/provider/features/notifySlice";
+} from "../provider/features/myartSlice";
+import { notify, setNotification } from "../provider/features/notifySlice";
 
 function Me() {
   const [open, setopen] = useState(false);

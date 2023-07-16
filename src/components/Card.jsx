@@ -1,12 +1,12 @@
-import Trash from "@/icon/Trash";
+import Trash from "../icon/Trash";
 import { Button, IconButton, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import LazyLoad from "react-lazy-load";
 import ImageIcon from "@mui/icons-material/Image";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import { useDispatch, useSelector } from "react-redux";
-import { token } from "@/provider/features/userClice";
-import { deleteArt, status } from "@/provider/features/myartSlice";
+import { token } from "../provider/features/userClice";
+import { deleteArt, status } from "../provider/features/myartSlice";
 import { useRouter } from "next/router";
 
 

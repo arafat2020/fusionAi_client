@@ -1,5 +1,5 @@
-import { truncateString } from "@/lib/truncate";
-import { removeUser, token, user } from "@/provider/features/userClice";
+import { truncateString } from "../lib/truncate";
+import { removeUser, token, user } from "../provider/features/userClice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import time from "time-ago";
@@ -7,7 +7,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import UserOnly from "./protected/UserOnly";
-import { fetchMyPost, loading, myart } from "@/provider/features/myartSlice";
+import { fetchMyPost, loading, myart } from "../provider/features/myartSlice";
 import Card from "./Card";
 import Loader from "./loder/Loader";
 import Loader2 from "./loder/Loader2";

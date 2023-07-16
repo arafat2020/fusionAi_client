@@ -3,16 +3,16 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LazyLoad from "react-lazy-load";
-import useReact from "@/hooks/useReact";
+import useReact from "../hooks/useReact";
 import { useDispatch, useSelector } from "react-redux";
-import { token, user } from "@/provider/features/userClice";
+import { token, user } from "../provider/features/userClice";
 import { SpeedDial, SpeedDialAction } from "@mui/material";
 
 import ImageIcon from "@mui/icons-material/Image";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import SecurityIcon from "@mui/icons-material/Security";
-import { setNotification } from "@/provider/features/notifySlice";
+import { setNotification } from "../provider/features/notifySlice";
 import { useRouter } from "next/router";
 
 

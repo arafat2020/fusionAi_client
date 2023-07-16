@@ -1,12 +1,12 @@
-import Main from "@/components/Main";
-import { status } from "@/provider/features/userClice";
+import Main from "../components/Main";
+import { status } from "../provider/features/userClice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LockPersonIcon from '@mui/icons-material/LockPerson';
-import {  setNotification } from "@/provider/features/notifySlice";
+import {  setNotification } from "../provider/features/notifySlice";
 import { useRouter } from "next/router";
-import MainIndex from "@/components/MainIndex";
-import { clearErr, err } from "@/provider/features/termslice";
+import MainIndex from "../components/MainIndex";
+import { clearErr, err } from "../provider/features/termslice";
 import GppBadIcon from "@mui/icons-material/GppBad";
 
 

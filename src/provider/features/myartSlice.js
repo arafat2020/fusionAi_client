@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/lib/deplument";
+import { axiosInstance } from "../../lib/deplument";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
