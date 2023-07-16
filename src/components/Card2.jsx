@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -7,18 +7,17 @@ import useReact from "../hooks/useReact";
 import { useDispatch, useSelector } from "react-redux";
 import { token, user } from "../provider/features/userClice";
 import { SpeedDial, SpeedDialAction } from "@mui/material";
-
+import "intersection-observer";
 import ImageIcon from "@mui/icons-material/Image";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
-import WidgetsIcon from '@mui/icons-material/Widgets';
+import WidgetsIcon from "@mui/icons-material/Widgets";
 import SecurityIcon from "@mui/icons-material/Security";
 import { setNotification } from "../provider/features/notifySlice";
 import { useRouter } from "next/router";
 
-
 function Card2({ obj }) {
   const fr = obj.width / obj.height;
-  const [Onmous, setOnmous] = useState(false)
+  const [Onmous, setOnmous] = useState(false);
   const [likes, setlikes] = useState();
   const [loves, setloves] = useState();
   const [dislikes, setdislikes] = useState();
@@ -26,7 +25,9 @@ function Card2({ obj }) {
   const tk = useSelector(token);
   const me = useSelector(user);
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
+  const componentRef = useRef(null);
+  const [isInviewport, setisInviewport] = useState(false);
   useEffect(() => {
     async function loader() {
       await setlikes(() =>
@@ -47,6 +48,29 @@ function Card2({ obj }) {
     }
     loader();
   }, [obj]);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setisInviewport(true)
+        }
+      },
+      {
+        root: null, // Use the viewport as the root
+        rootMargin: "0px", // No margin
+        threshold: 0.5, // Trigger at 50% visibility
+      }
+    );
+    if (componentRef.current) {
+      observer.observe(componentRef.current);
+    }
+    return () => {
+      if (componentRef.current) {
+        observer.unobserve(componentRef.current);
+      }
+    };
+  }, []);
+
   //   console.log(likes, loves, dislikes, res);
   function notice(params) {
     dispatch(
@@ -57,14 +81,15 @@ function Card2({ obj }) {
       })
     );
   }
-  console.log(Onmous);
-  
+  // console.log(Onmous);
+
   return (
     <div
-    onMouseOver={()=>setOnmous(true)}
-    onMouseOut={()=>setOnmous(false)}
+      onMouseOver={() => setOnmous(true)}
+      onMouseOut={() => setOnmous(false)}
+      ref={componentRef}
       style={{
-        backgroundImage: `url(${obj?.img})`,
+        backgroundImage: `url(${isInviewport?obj?.img:''})`,
         backgroundPosition: "center",
       }}
       className={`rounded-md relative ${
@@ -72,9 +97,11 @@ function Card2({ obj }) {
       } ${fr > 1 ? "grid_wide" : "grid_tall"}`}
     >
       <div className="top-0 left-0 absolute rounded-md w-full h-full  transition ">
-        <div className={`absolute top-2 sm:top-10 left-3 flex flex-col space-y-8  items-center transition
-        ${Onmous?"scale-100":"scale-0"}
-        `}>
+        <div
+          className={`absolute top-2 sm:top-10 left-3 flex flex-col space-y-8  items-center transition
+        ${Onmous ? "scale-100" : "scale-0"}
+        `}
+        >
           <button
             disabled={loading ? true : false}
             onClick={() => {
@@ -159,15 +186,20 @@ function Card2({ obj }) {
       </div>
       <SpeedDial
         ariaLabel="SpeedDial basic example"
-        icon={<WidgetsIcon sx={{
-          color:"rgb(36, 60, 128)"
-        }} fontSize="large"/>}
+        icon={
+          <WidgetsIcon
+            sx={{
+              color: "rgb(36, 60, 128)",
+            }}
+            fontSize="large"
+          />
+        }
         sx={{ position: "absolute", top: 5, right: 5 }}
         direction="left"
       >
         <SpeedDialAction
           onClick={() => {
-           router.push(`/gallery?id=${obj.id}`)
+            router.push(`/gallery?id=${obj.id}`);
           }}
           icon={<ImageIcon color="primary" />}
           tooltipTitle="View image"
