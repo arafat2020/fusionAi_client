@@ -4,24 +4,36 @@ import {
   fetchPost,
   loading,
   reasult,
+  searchPost,
+  status,
+  term,
 } from "../provider/features/termslice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader2 from "./loder/Loader2";
 import Card2 from "./Card2";
-import LockPersonIcon from '@mui/icons-material/LockPerson';
+import LockPersonIcon from "@mui/icons-material/LockPerson";
 import { setNotification } from "../provider/features/notifySlice";
-
 
 function MainIndex() {
   const res = useSelector(reasult);
   const ld = useSelector(loading);
   const error = useSelector(err);
+  const q = useSelector(term);
+  const st = useSelector(status)
   const dispatch = useDispatch();
   useEffect(() => {
     if (res.length > 0) return;
     dispatch(fetchPost());
   }, [res]);
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      if (q) {
+        dispatch(searchPost({ term: q }));
+      }
+    }, 400);
+    return () => clearTimeout(debounce);
+  }, [q]);
   useEffect(() => {
     async function loader(params) {
       await dispatch(
@@ -31,10 +43,9 @@ function MainIndex() {
           open: true,
         })
       );
-      dispatch(clearErr())
+      dispatch(clearErr());
     }
-    if (error) loader()
-
+    if (error) loader();
   }, [error]);
 
   return (
@@ -43,7 +54,7 @@ function MainIndex() {
         Explore and React New Creation
       </h4>
       <div className="w-full mt-8 gallery p-5">
-        {ld ? (
+        {ld && st === 'pending' ? (
           <Loader2 />
         ) : (
           res.map((e) => {

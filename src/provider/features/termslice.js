@@ -6,7 +6,10 @@ export const fetchPost = createAsyncThunk("post/fetch", async () => {
   const res = await axiosInstance.get("/getPost");
   return res.data;
 });
-
+export const searchPost = createAsyncThunk("post/search", async ({term}) => {
+  const res = await axiosInstance.get(`/search?term=${term}&nsfw=true`)
+  return res.data
+});
 const termslice = createSlice({
   name: "term",
   initialState: {
@@ -50,10 +53,24 @@ const termslice = createSlice({
       state.status = "failed";
     });
     //---------------- fetch post end ---------------------
+    //---------------- search post start ---------------------
+    builder.addCase(searchPost.pending,(state) => {
+      state.status = "searching";
+    })
+    builder.addCase(searchPost.fulfilled, (state, action) => {
+      state.reasult = action.payload;
+      state.status = "ok";
+    });
+    builder.addCase(searchPost.rejected, (state, action) => {
+      state.err = action.error.message;
+      state.status = "failed";
+    });
+    //---------------- search post end ---------------------
   },
 });
 
-export const { setTerm, clearTerm, clearErr,findAndReplace } = termslice.actions;
+export const { setTerm, clearTerm, clearErr, findAndReplace } =
+  termslice.actions;
 export const termReducer = termslice.reducer;
 export const term = (state) => state.term.term;
 export const loading = (state) => state.term.loading;

@@ -31,17 +31,17 @@ function Card2({ obj }) {
   useEffect(() => {
     async function loader() {
       await setlikes(() =>
-        obj.react.filter((e) => {
+        obj.react?.filter((e) => {
           return e.type === "like";
         })
       );
       await setloves(() =>
-        obj.react.filter((e) => {
+        obj.react?.filter((e) => {
           return e.type === "love";
         })
       );
       await setdislikes(() =>
-        obj.react.filter((e) => {
+        obj.react?.filter((e) => {
           return e.type === "dislike";
         })
       );
@@ -52,7 +52,7 @@ function Card2({ obj }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setisInviewport(true)
+          setisInviewport(true);
         }
       },
       {
@@ -89,7 +89,7 @@ function Card2({ obj }) {
       onMouseOut={() => setOnmous(false)}
       ref={componentRef}
       style={{
-        backgroundImage: `url(${isInviewport?obj?.img:''})`,
+        backgroundImage: `url(${isInviewport ? obj?.img : ""})`,
         backgroundPosition: "center",
       }}
       className={`rounded-md relative ${
@@ -177,7 +177,7 @@ function Card2({ obj }) {
         <div className="absolute bottom-2 right-2 glassBg p-1 rounded-full cursor-pointer">
           <LazyLoad>
             <img
-              src={obj.Artist.profilePic}
+              src={obj.Artist?.profilePic}
               alt="profilePic"
               className="w-[35px] h-[35px] rounded-full"
             />
