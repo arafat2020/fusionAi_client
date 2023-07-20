@@ -80,6 +80,9 @@
   width: 100%;
   height:100%;
 }
+.css-r9uhzn{
+  background: transparent !important;
+}
 @media screen and (min-width:550px){
   .grid_wide{
     grid-column: span 3 / auto;

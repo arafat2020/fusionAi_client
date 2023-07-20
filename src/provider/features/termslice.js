@@ -6,9 +6,13 @@ export const fetchPost = createAsyncThunk("post/fetch", async () => {
   const res = await axiosInstance.get("/getPost");
   return res.data;
 });
-export const searchPost = createAsyncThunk("post/search", async ({term}) => {
-  const res = await axiosInstance.get(`/search?term=${term}&nsfw=true`)
-  return res.data
+export const reFetchPost = createAsyncThunk("post/fetch", async ({ skip=0 }) => {
+  const res = await axiosInstance.get(`/getPost?skip=${skip}`);
+  return res.data;
+});
+export const searchPost = createAsyncThunk("post/search", async ({ term }) => {
+  const res = await axiosInstance.get(`/search?term=${term}&nsfw=true`);
+  return res.data;
 });
 const termslice = createSlice({
   name: "term",
@@ -18,6 +22,7 @@ const termslice = createSlice({
     loading: false,
     status: "idle",
     err: null,
+    limit:0
   },
   reducers: {
     setTerm: (state, action) => {
@@ -43,7 +48,8 @@ const termslice = createSlice({
       state.status = "pending";
     });
     builder.addCase(fetchPost.fulfilled, (state, action) => {
-      state.reasult = action.payload;
+      state.reasult = action.payload[0];
+      state.limit = action.payload[1]
       state.loading = false;
       state.status = "ok";
     });
@@ -54,9 +60,9 @@ const termslice = createSlice({
     });
     //---------------- fetch post end ---------------------
     //---------------- search post start ---------------------
-    builder.addCase(searchPost.pending,(state) => {
+    builder.addCase(searchPost.pending, (state) => {
       state.status = "searching";
-    })
+    });
     builder.addCase(searchPost.fulfilled, (state, action) => {
       state.reasult = action.payload;
       state.status = "ok";
