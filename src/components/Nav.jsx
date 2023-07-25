@@ -7,12 +7,15 @@ import { removeUser, status, user } from "../provider/features/userClice";
 import { truncateString } from "../lib/truncate";
 import { Button, IconButton, Menu, MenuItem, Skeleton } from "@mui/material";
 import { useRouter } from "next/router";
-import { clearTerm, setTerm, term } from "../provider/features/termslice";
+import { clearTerm, setTerm, term, termStatus } from "../provider/features/termslice";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { CircularProgress } from '@mui/material'
+
 
 function Nav() {
   const st = useSelector(status);
+  const srst = useSelector(termStatus)
   const me = useSelector(user);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -46,6 +49,7 @@ function Nav() {
           placeholder="Search Image Art"
           className=" flex-grow bg-transparent outline-none"
         />
+        {srst === "searching" && <CircularProgress size={30}/>}
       </div>
       {st === "Unathenticated" || (st === "ok" && me === null) ? (
         <div className="hidden sm:inline-flex">

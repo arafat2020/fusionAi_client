@@ -207,6 +207,7 @@ function Card2({ obj }) {
         <SpeedDialAction
           icon={<NewspaperIcon color="primary" />}
           tooltipTitle="Go to Post"
+          onClick={()=>router.push(`/feed?id=${obj.id}`)}
         />
       </SpeedDial>
     </div>

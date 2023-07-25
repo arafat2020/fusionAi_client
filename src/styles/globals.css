@@ -43,80 +43,79 @@
 }
 .LazyLoad {
   opacity: 0;
-  
-  transition: all .6s ease-in-out;
+
+  transition: all 0.6s ease-in-out;
 }
 
 .is-visible {
   opacity: 1;
-  
 }
-.overlay{
-  transition: .4s;
+.overlay {
+  transition: 0.4s;
 }
 
-.card:hover .overlay{
+.card:hover .overlay {
   transform: scale(1);
 }
-.grid-Wraper{
+.grid-Wraper {
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-auto-rows: 250px;
   grid-auto-rows: dense;
 }
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   grid-gap: 1rem;
   grid-auto-rows: 100px;
 }
-.card2{
+.card2 {
   width: 0;
-  height:0;
+  height: 0;
 }
-.card2:hover{
+.card2:hover {
   width: 100%;
-  height:100%;
+  height: 100%;
 }
-.css-r9uhzn{
+.css-r9uhzn {
   background: transparent !important;
 }
-@media screen and (min-width:550px){
-  .grid_wide{
+@media screen and (min-width: 550px) {
+  .grid_wide {
     grid-column: span 3 / auto;
-    grid-row: span 2 / auto ;
+    grid-row: span 2 / auto;
   }
-  .grid_tall{
+  .grid_tall {
     grid-column: span 3 / auto;
-    grid-row: span 2 / auto ;
+    grid-row: span 2 / auto;
   }
-  .grid_wide2{
+  .grid_wide2 {
     grid-column: span 4 / auto;
-    grid-row: span 3 / auto ;
+    grid-row: span 3 / auto;
   }
-  .grid_tall2{
+  .grid_tall2 {
     grid-column: span 3 / auto;
-    grid-row: span 4 / auto ;
+    grid-row: span 4 / auto;
   }
 }
-@media screen and (max-width:549px){
-  .grid_wide{
+@media screen and (max-width: 549px) {
+  .grid_wide {
     grid-column: span 2 / auto;
-    grid-row: span 2 / auto ;
+    grid-row: span 2 / auto;
   }
-  .grid_tall{
+  .grid_tall {
     grid-column: span 2 / auto;
-    grid-row: span 2 / auto ;
+    grid-row: span 2 / auto;
   }
 }
 
-.css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper{
-background: rgba(40, 31, 31, 0.63) !important;
-border-radius: 16px !important;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
-backdrop-filter: blur(5px) !important;
--webkit-backdrop-filter: blur(5px) !important;
-border: 1px solid rgba(40, 31, 31, 0.3) !important;
+.css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper {
+  background: rgba(40, 31, 31, 0.63) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  border: 1px solid rgba(40, 31, 31, 0.3) !important;
 }

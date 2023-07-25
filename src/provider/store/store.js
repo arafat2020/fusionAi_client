@@ -4,6 +4,7 @@ import { notifyReducer } from "../features/notifySlice";
 import { termReducer } from "../features/termslice";
 import { myartReducer } from "../features/myartSlice";
 import { modelReducer } from "../features/modelSlice";
+import { feedReducer } from "../features/feedslice";
 
 export default  configureStore({
     reducer:{
@@ -11,6 +12,7 @@ export default  configureStore({
         notify:notifyReducer,
         term:termReducer,
         myart:myartReducer,
-        model:modelReducer
+        model:modelReducer,
+        feed:feedReducer
     }
 })

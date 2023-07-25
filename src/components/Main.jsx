@@ -13,7 +13,7 @@ function Main({ incert }) {
     dispatch(initialLoad());
   }, [me]);
   return (
-    <main className="w-[100%] h-[100%] bg-black">
+    <main className="w-[100%] h-[100%] bg-black overflow-scroll scrollbar-hide">
       {st === "pending" ? <Loader2 /> : incert}
     </main>
   );

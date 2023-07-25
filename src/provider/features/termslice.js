@@ -82,4 +82,5 @@ export const term = (state) => state.term.term;
 export const loading = (state) => state.term.loading;
 export const err = (state) => state.term.err;
 export const status = (state) => state?.term?.status;
+export const termStatus = (state) => state?.term?.status;
 export const reasult = (state) => state?.term?.reasult;
