@@ -32,9 +32,11 @@ const feedSlice = createSlice({
       state.cmt.splice(index, 1);
     },
     upDateCount: (state, action) => {
+      console.log(action.payload);
       state.likeCount = action.payload[0];
       state.loveCount = action.payload[1];
       state.dislikeCount = action.payload[2];
+      state.react = action.payload[3];
     },
   },
   extraReducers: (builder) => {
@@ -49,7 +51,7 @@ const feedSlice = createSlice({
       state.loveCount = action.payload[3];
       state.dislikeCount = action.payload[4];
       state.reducer = action.payload[5];
-      state.react = action.payload[6]
+      state.react = action.payload[6];
       state.status = "ok";
       state.err = null;
       state.loading = false;

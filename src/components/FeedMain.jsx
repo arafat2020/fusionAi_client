@@ -16,7 +16,8 @@ import useCmt from "../hooks/useCmt";
 import { token, user } from "../provider/features/userClice";
 import { setNotification } from "../provider/features/notifySlice";
 import SecurityIcon from "@mui/icons-material/Security";
-import {httptoHttps} from '../lib/commons'
+import { httptoHttps } from "../lib/commons";
+import usePostReact from "../hooks/useReactPost";
 
 function FeedMain({ id }) {
   const dispatch = useDispatch();
@@ -51,7 +52,8 @@ function FeedMain({ id }) {
     loader();
   }, [feed]);
   const { postCmt, ld, err } = useCmt();
-  console.log();
+  const { reactAction, loading, err: postreactErr, res } = usePostReact();
+  console.log(res);
   function notice() {
     dispatch(
       setNotification({
@@ -87,7 +89,20 @@ function FeedMain({ id }) {
             <div className="w-full h-[10%] flex space-x-2">
               <div>
                 <Tooltip title="Like">
-                  <IconButton>
+                  <IconButton
+                    disabled={loading ? true : false}
+                    onClick={() => {
+                      if (tk) {
+                        reactAction({
+                          artId: feed.post.id,
+                          token: tk,
+                          type: "like",
+                        });
+                      } else {
+                        notice();
+                      }
+                    }}
+                  >
                     {likes?.find((e) => e.artistId === me?.user.id) ? (
                       <ThumbUpAltRoundedIcon
                         color="primary"
@@ -105,7 +120,20 @@ function FeedMain({ id }) {
                   {feed.likeCount}
                 </Typography>
                 <Tooltip title="Love">
-                  <IconButton>
+                  <IconButton
+                    disabled={loading ? true : false}
+                    onClick={() => {
+                      if (tk) {
+                        reactAction({
+                          artId: feed.post.id,
+                          token: tk,
+                          type: "love",
+                        });
+                      } else {
+                        notice();
+                      }
+                    }}
+                  >
                     {loves?.find((e) => e.artistId === me?.user.id) ? (
                       <FavoriteIcon color="primary" fontSize="medium" />
                     ) : (
@@ -120,9 +148,25 @@ function FeedMain({ id }) {
                   {feed.loveCount}
                 </Typography>
                 <Tooltip title="Dislike">
-                  <IconButton>
+                  <IconButton
+                    disabled={loading ? true : false}
+                    onClick={() => {
+                      if (tk) {
+                        reactAction({
+                          artId: feed.post.id,
+                          token: tk,
+                          type: "dislike",
+                        });
+                      } else {
+                        notice();
+                      }
+                    }}
+                  >
                     {dislikes?.find((e) => e.artistId === me?.user.id) ? (
-                      <ThumbDownAltRoundedIcon color="primary" fontSize="medium" />
+                      <ThumbDownAltRoundedIcon
+                        color="primary"
+                        fontSize="medium"
+                      />
                     ) : (
                       <ThumbDownAltOutlinedIcon
                         color="primary"
@@ -155,7 +199,7 @@ function FeedMain({ id }) {
               })}
             </div>
             <div
-              className={`w-full h-[15%] flex space-x-2  items-center glassBg p-2 rounded-md`}
+              className={`w-full max-h-[15%] min-h-[70px] flex space-x-2  items-center glassBg p-2 rounded-md`}
             >
               <TextField
                 type="text"

@@ -1,6 +1,7 @@
 import { axiosInstance } from "../lib/deplument";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { upDateCount } from "../provider/features/feedslice";
 
 function useReact() {
   const [loading, setloading] = useState(false);
@@ -22,8 +23,9 @@ function useReact() {
         }
       })
       .then(async(data) => {
-        await dispacth()
+        await dispacth(upDateCount(data.data))
         setres(data.data)
+        console.log(data);
       })
       .catch((err) => seterr(err))
       .finally(() => setloading(false));
