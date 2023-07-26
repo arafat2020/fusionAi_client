@@ -16,6 +16,7 @@ import useCmt from "../hooks/useCmt";
 import { token, user } from "../provider/features/userClice";
 import { setNotification } from "../provider/features/notifySlice";
 import SecurityIcon from "@mui/icons-material/Security";
+import {httptoHttps} from '../lib/commons'
 
 function FeedMain({ id }) {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function FeedMain({ id }) {
     loader();
   }, [feed]);
   const { postCmt, ld, err } = useCmt();
-  console.log(likes, loves, dislikes);
+  console.log();
   function notice() {
     dispatch(
       setNotification({
@@ -70,7 +71,7 @@ function FeedMain({ id }) {
             <div className="w-full h-[90%] flex justify-between items-center  overflow-scroll scrollbar-hide rounded-md">
               <img
                 className="rounded-md"
-                src={feed.post.img}
+                src={httptoHttps(feed.post.img)}
                 alt=""
                 srcset=""
               />
