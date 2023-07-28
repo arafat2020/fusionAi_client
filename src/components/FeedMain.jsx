@@ -87,7 +87,7 @@ function FeedMain({ id }) {
                 </Typography>
               </div>
             </div>
-            <div className="w-full h-[10%] flex justify-between p-2 items-center">
+            <div className="w-full h-[10%] flex flex-col sm:flex-row justify-between p-2 sm:items-center">
               <div>
                 <Tooltip title="Like">
                   <IconButton
@@ -183,7 +183,7 @@ function FeedMain({ id }) {
               <FvButton id={feed.post.id}/>
             </div>
           </div>
-          <div className="w-[90%] md:w-[47%] h-full flex flex-col justify-around">
+          <div className="w-[90%] mt-6 sm:mt-0  md:w-[47%] h-full flex flex-col justify-around">
             <div className="w-full h-[80%] overflow-scroll scrollbar-hide flex flex-col space-y-2">
               {feed.cmt?.map((e) => {
                 return (
