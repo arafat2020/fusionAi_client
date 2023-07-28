@@ -183,7 +183,7 @@ function FeedMain({ id }) {
               <FvButton id={feed.post.id}/>
             </div>
           </div>
-          <div className="w-[90%] mt-6 sm:mt-0  md:w-[47%] h-full flex flex-col justify-around">
+          <div className="w-[90%] mt-10 sm:mt-0  md:w-[47%] h-full flex flex-col justify-around">
             <div className="w-full h-[80%] overflow-scroll scrollbar-hide flex flex-col space-y-2">
               {feed.cmt?.map((e) => {
                 return (
