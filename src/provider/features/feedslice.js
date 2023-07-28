@@ -17,6 +17,7 @@ const feedSlice = createSlice({
     loveCount: 0,
     dislikeCount: 0,
     react: [],
+    favorite: [],
     err: null,
   },
   reducers: {
@@ -38,6 +39,13 @@ const feedSlice = createSlice({
       state.dislikeCount = action.payload[2];
       state.react = action.payload[3];
     },
+    addtofavorite: (state, action) => {
+      state.favorite.unshift(action.payload);
+    },
+    removeFromFavorite: (state, action) => {
+      const index = state.favorite.findIndex((el) => el.id === action.payload);
+      state.favorite.splice(index, 1);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchFeed.pending, (state) => {
@@ -52,6 +60,7 @@ const feedSlice = createSlice({
       state.dislikeCount = action.payload[4];
       state.reducer = action.payload[5];
       state.react = action.payload[6];
+      state.favorite = action.payload[7];
       state.status = "ok";
       state.err = null;
       state.loading = false;
@@ -64,8 +73,15 @@ const feedSlice = createSlice({
   },
 });
 
-export const { findAndReplaceCmt, incertCmt, removeCmt, upDateCount } =
-  feedSlice.actions;
+export const {
+  findAndReplaceCmt,
+  incertCmt,
+  removeCmt,
+  upDateCount,
+  addtofavorite,
+  removeFromFavorite,
+} = feedSlice.actions;
 export const feedReducer = feedSlice.reducer;
 export const feedOverview = (state) => state.feed;
 export const feedLoading = (state) => state.feed.loading;
+export const fevorite = (state) => state.feed.favorite;

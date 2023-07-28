@@ -18,6 +18,7 @@ import { setNotification } from "../provider/features/notifySlice";
 import SecurityIcon from "@mui/icons-material/Security";
 import { httptoHttps } from "../lib/commons";
 import usePostReact from "../hooks/useReactPost";
+import FvButton from '../components/FvButton'
 
 function FeedMain({ id }) {
   const dispatch = useDispatch();
@@ -86,7 +87,7 @@ function FeedMain({ id }) {
                 </Typography>
               </div>
             </div>
-            <div className="w-full h-[10%] flex space-x-2">
+            <div className="w-full h-[10%] flex justify-between p-2 items-center">
               <div>
                 <Tooltip title="Like">
                   <IconButton
@@ -179,6 +180,7 @@ function FeedMain({ id }) {
                   {feed.dislikeCount}
                 </Typography>
               </div>
+              <FvButton id={feed.post.id}/>
             </div>
           </div>
           <div className="w-[90%] md:w-[47%] h-full flex flex-col justify-around">

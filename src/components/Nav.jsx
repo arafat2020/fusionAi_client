@@ -104,12 +104,17 @@ function Nav() {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+       
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
+        style={{
+          backgroundColor: 'rgba(24, 25, 26, .4)',
+        
+        }}
       >
         <MenuItem
-         
+          
         >
           <div className="flex glassBg items-center h-[60%] w-[1000%] rounded-md text-slate-500 space-x-3">
             <div className="cursor-pointer" onClick={() => router.push("/")}>
