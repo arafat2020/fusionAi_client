@@ -8,19 +8,25 @@ import {
   status,
   term,
 } from "../provider/features/termslice";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader2 from "./loder/Loader2";
 import Card2 from "./Card2";
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 import { setNotification } from "../provider/features/notifySlice";
+import { InputLabel, MenuItem, Select } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import FeedRoundedIcon from "@mui/icons-material/FeedRounded";
+import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded";
+import FeedCard from "./FeedCard";
 
 function MainIndex() {
   const res = useSelector(reasult);
   const ld = useSelector(loading);
   const error = useSelector(err);
   const q = useSelector(term);
-  const st = useSelector(status)
+  const st = useSelector(status);
+  const [view, setview] = useState("card");
   const dispatch = useDispatch();
   useEffect(() => {
     if (res.length > 0) return;
@@ -50,15 +56,57 @@ function MainIndex() {
 
   return (
     <div className="w-full h-full overflow-scroll scrollbar-hide p-5">
-      <h4 className="text-2xl text-gray-200 font-medium font-sans mt-2 mb-2 ml-2">
-        Explore and React New Creation
-      </h4>
-      <div className="w-full mt-8 gallery p-5">
-        {ld && st === 'pending' ? (
+      <div className="flex flex-col sm:flex-row sm:justify-between">
+        <h4 className="text-2xl text-gray-200 font-medium font-sans mt-2 mb-2 ml-2">
+          Explore and React New Creation
+        </h4>
+        <div className=" min-w-[150px]  p-2">
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="demo-simple-select-label"> View Type</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Select View Type"
+              style={{
+                color: "steelblue",
+                height: "40px",
+                fontSize: "15px",
+              }}
+              value={view}
+              onChange={(e) => setview(e.target.value)}
+            >
+              <MenuItem
+                style={{
+                  color: "steelblue",
+                  fontSize: "15px",
+                }}
+                value={"card"}
+              >
+                <PaymentRoundedIcon /> Card View
+              </MenuItem>
+              <MenuItem
+                style={{
+                  color: "steelblue",
+                  fontSize: "15px",
+                }}
+                value={"feed"}
+              >
+                <FeedRoundedIcon /> Feed View
+              </MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+      </div>
+      <div className={` mt-8  ${view==='card'?'gallery w-full':'max-w-[1000px] m-auto '} p-1 sm:p-5`}>
+        {ld && st === "pending" ? (
           <Loader2 />
-        ) : (
+        ) : view == "card" ? (
           res.map((e) => {
             return <Card2 obj={e} key={e.id} />;
+          })
+        ) : (
+          res.map((e) => {
+            return <FeedCard obj={e} key={e.id} />;
           })
         )}
       </div>
