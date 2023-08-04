@@ -26,7 +26,7 @@ function MainIndex() {
   const error = useSelector(err);
   const q = useSelector(term);
   const st = useSelector(status);
-  const [view, setview] = useState("card");
+  const [view, setview] = useState("feed");
   const dispatch = useDispatch();
   useEffect(() => {
     if (res.length > 0) return;
