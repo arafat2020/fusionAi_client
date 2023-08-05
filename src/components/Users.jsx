@@ -1,9 +1,9 @@
 import React from "react";
-import getUsers from "../hooks/getUsers";
+import useUsers from "../hooks/getUsers";
 import { Avatar, Skeleton, Tooltip, Typography } from "@mui/material";
 
 function Users() {
-  const { loading, res, err } = getUsers();
+  const { loading, res, err } = useUsers();
   console.log(loading, res);
   const Res = () => {
     return (
@@ -30,9 +30,9 @@ function Users() {
     }
     return (
       <>
-        {arr.map(() => {
+        {arr.map((a,b) => {
           return (
-            <div className=" p-2 rounded-full border border-slate-400">
+            <div key={b} className=" p-2 rounded-full border border-slate-400">
               <Skeleton
                 variant="circular"
                 style={{

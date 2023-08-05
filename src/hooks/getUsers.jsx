@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../lib/deplument";
 
-function getUsers() {
+function useUsers() {
   const [loading, setloading] = useState(false);
   const [res, setres] = useState([]);
   const [err, seterr] = useState(null);
@@ -23,4 +23,4 @@ function getUsers() {
   };
 }
 
-export default getUsers;
+export default useUsers;
