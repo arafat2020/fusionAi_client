@@ -183,7 +183,7 @@ function FeedCard({ obj }) {
           Go to Post
         </Button>
       </div>
-      {obj?.comment.length > 0 && (
+      {obj?.comment?.length > 0 && (
         <Typography variant="caption" color="GrayText">
           Leatest Comment from This Post
         </Typography>
