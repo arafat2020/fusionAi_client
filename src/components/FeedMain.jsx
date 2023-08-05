@@ -70,7 +70,7 @@ function FeedMain({ id }) {
         <Loader2 />
       ) : (
         <>
-          <div className="w-[95%] md:w-[47%] h-[80%] md:h-full relative">
+          <div className="w-[95%] md:w-[47%] h-[80%] md:h-full relative mb-3 sm:mb-0">
             <div className="w-full h-[90%] flex justify-between items-center  overflow-scroll scrollbar-hide rounded-md">
               <img
                 className="rounded-md"

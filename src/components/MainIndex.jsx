@@ -19,6 +19,7 @@ import FormControl from "@mui/material/FormControl";
 import FeedRoundedIcon from "@mui/icons-material/FeedRounded";
 import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded";
 import FeedCard from "./FeedCard";
+import Users from "./Users";
 
 function MainIndex() {
   const res = useSelector(reasult);
@@ -57,7 +58,7 @@ function MainIndex() {
   return (
     <div className="w-full h-full overflow-scroll scrollbar-hide p-5">
       <div className="flex flex-col sm:flex-row sm:justify-between">
-        <h4 className="text-2xl text-gray-200 font-medium font-sans mt-2 mb-2 ml-2">
+        <h4 className="text-2xl text-gray-200 font-medium font-sans mt-2  ml-2">
           Explore and React New Creation
         </h4>
         <div className=" min-w-[150px]  p-2">
@@ -97,7 +98,8 @@ function MainIndex() {
           </FormControl>
         </div>
       </div>
-      <div className={` mt-8  ${view==='card'?'gallery w-full':'max-w-[1000px] m-auto '} p-1 sm:p-5`}>
+      <Users/>
+      <div className={`   ${view==='card'?'gallery w-full':'max-w-[1000px] m-auto '} p-1 sm:p-5`}>
         {ld && st === "pending" ? (
           <Loader2 />
         ) : view == "card" ? (
