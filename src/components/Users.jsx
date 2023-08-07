@@ -51,7 +51,7 @@ function Users() {
     <div className="ml-2">
       
       <Typography variant="caption" color="GrayText" >
-        Artist You may like
+        Artist You May Like
       </Typography>
       <div className="flex min-w-[300px] max-w-[1000px] mt-1 mb-3 sm:mb-0 space-x-3 overflow-scroll scrollbar-hide">
         {loading ? <Loader /> : <Res />}

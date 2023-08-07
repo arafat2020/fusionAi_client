@@ -65,9 +65,10 @@ function LoginForm() {
         focused
         fullWidth
         variant="outlined"
-        sx={{
-          height: "50px",
+        style={{
+          color:'whitesmoke'
         }}
+        size="small"
       />
       <TextField
         onChange={(e) => setpassword(e.target.value)}
@@ -77,9 +78,8 @@ function LoginForm() {
         fullWidth
         variant="outlined"
         type="password"
-        sx={{
-          height: "50px",
-        }}
+        
+        size="small"
       />
       <button
         onClick={subMitt}

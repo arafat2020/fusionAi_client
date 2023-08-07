@@ -65,8 +65,8 @@ const router = useRouter()
     );
   }
   return (
-    <div className="space-y-5 text-center">
-      <div className="flex space-x-3">
+    <div className="  space-y-2  sm:space-y-5 text-center">
+      <div className="flex flex-col  space-y-2 sm:space-y-0 sm:flex-row sm:space-x-3">
         <TextField
           onChange={(e) => setname(e.target.value)}
           id="outlined-basic"
@@ -74,9 +74,7 @@ const router = useRouter()
           focused
           fullWidth
           variant="outlined"
-          sx={{
-            height: "50px",
-          }}
+          size="small"
         />
         <TextField
           onChange={(e) => setemail(e.target.value)}
@@ -85,12 +83,10 @@ const router = useRouter()
           focused
           fullWidth
           variant="outlined"
-          sx={{
-            height: "50px",
-          }}
+          size="small"
         />
       </div>
-      <div className="flex space-x-3">
+      <div className="flex flex-col  space-y-2 sm:space-y-0 sm:flex-row sm:space-x-3">
         <TextField
           onChange={(e) => setpassword(e.target.value)}
           id="outlined-basic"
@@ -99,6 +95,7 @@ const router = useRouter()
           fullWidth
           variant="outlined"
           type="password"
+          size="small"
         />
         <TextField
           onChange={(e) => setconfirmPassword(e.target.value)}
@@ -108,6 +105,7 @@ const router = useRouter()
           fullWidth
           variant="outlined"
           type="password"
+          size="small"
         />
       </div>
       <TextField
@@ -118,11 +116,9 @@ const router = useRouter()
         fullWidth
         variant="outlined"
         type="text"
-        sx={{
-          height: "50px",
-        }}
+        size="small"
       />
-      <div className="flex space-x-3">
+      <div className="flex flex-col  space-y-2 sm:space-y-0 sm:flex-row sm:space-x-3">
         <TextField
           onChange={(e) => setpic(e.target.value)}
           id="outlined-basic"
@@ -131,9 +127,8 @@ const router = useRouter()
           fullWidth
           variant="outlined"
           type="text"
-          sx={{
-            height: "50px",
-          }}
+          size="small"
+          
         />
         <TextField
           onChange={async (e) => await imageToBase64(e.target.files[0])}
@@ -143,9 +138,7 @@ const router = useRouter()
           fullWidth
           variant="outlined"
           type="file"
-          sx={{
-            height: "50px",
-          }}
+          size="small"
         />
       </div>
       <button

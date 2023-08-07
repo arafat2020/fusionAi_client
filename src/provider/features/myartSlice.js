@@ -95,7 +95,9 @@ export const deleteArt = createAsyncThunk("post/delete", async ({token, img, id}
     clearErr: (state) => {
       state.err = null;
     },
-    
+    clearMyArt: (state)=>{
+      state.myart = []
+    }
   },
   extraReducers: (builder) => {
     // --------creare post start------------
@@ -149,4 +151,4 @@ export const loading = (state) => state.myart.loading;
 export const err = (state) => state.myart.err;
 export const status = (state) => state.myart.status;
 export const myart = (state) => state.myart.myart;
-export const { clearErr } = myartslice.actions;
+export const { clearErr,clearMyArt } = myartslice.actions;
