@@ -98,7 +98,13 @@ function Card2({ obj }) {
   // console.log(Onmous);
 
   return (
-    <div
+    <div className={`${fr > 1 ? "grid_wide" : "grid_tall"} relative`}>
+      {imgLoad && (
+        <div className="absolute z-10 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
+          <CircularProgress size="md" color="neutral"/>
+        </div>
+      )}
+      <div
       onMouseOver={() => setOnmous(true)}
       onMouseOut={() => setOnmous(false)}
       ref={componentRef}
@@ -107,17 +113,13 @@ function Card2({ obj }) {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
-      className={`rounded-md relative ${
+      className={`rounded-md relative w-full h-full ${
         loading ? "opacity-60" : "opacity-100"
-      } ${fr > 1 ? "grid_wide" : "grid_tall"} ${
+      }  ${
         imgLoad ? "blur-md" : "blur-0"
       }`}
     >
-      {imgLoad && (
-        <div className="absolute z-10 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
-          <CircularProgress size="lg" />
-        </div>
-      )}
+      
       <div className="top-0 left-0 absolute rounded-md w-full h-full  transition ">
         <div
           className={`absolute top-2 sm:top-5 left-3 flex flex-col space-y-8  items-center transition
@@ -232,6 +234,7 @@ function Card2({ obj }) {
           onClick={() => router.push(`/feed?id=${obj.id}`)}
         />
       </SpeedDial>
+    </div>
     </div>
   );
 }

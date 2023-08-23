@@ -18,7 +18,7 @@ import { setNotification } from "../provider/features/notifySlice";
 import SecurityIcon from "@mui/icons-material/Security";
 import { httptoHttps } from "../lib/commons";
 import usePostReact from "../hooks/useReactPost";
-import FvButton from '../components/FvButton'
+import FvButton from "../components/FvButton";
 
 function FeedMain({ id }) {
   const dispatch = useDispatch();
@@ -29,6 +29,7 @@ function FeedMain({ id }) {
   const [likes, setlikes] = useState();
   const [loves, setloves] = useState();
   const [dislikes, setdislikes] = useState();
+  const [imgLoad, setimgLoad] = useState(true);
   useEffect(() => {
     if (id) dispatch(fetchFeed(id));
   }, [id]);
@@ -72,8 +73,14 @@ function FeedMain({ id }) {
         <>
           <div className="w-[95%] md:w-[47%] h-[80%] md:h-full relative mb-3 sm:mb-0">
             <div className="w-full h-[90%] flex justify-between items-center  overflow-scroll scrollbar-hide rounded-md">
+              {imgLoad && (
+                <div className="absolute z-20 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+                  <CircularProgress size="lg" color="neutral" />
+                </div>
+              )}
               <img
-                className="rounded-md"
+                onLoad={() => setimgLoad(false)}
+                className={`rounded-md ${imgLoad ? "blur-md" : "blur-0"}`}
                 src={httptoHttps(feed.post.img)}
                 alt=""
                 srcset=""
@@ -180,7 +187,7 @@ function FeedMain({ id }) {
                   {feed.dislikeCount}
                 </Typography>
               </div>
-              <FvButton id={feed.post.id}/>
+              <FvButton id={feed.post.id} />
             </div>
           </div>
           <div className="w-[90%] mt-10 sm:mt-0  md:w-[47%] h-full flex flex-col justify-around">

@@ -7,7 +7,7 @@ import { removeUser, status, user } from "../provider/features/userClice";
 import { truncateString } from "../lib/truncate";
 import { Button, IconButton, Menu, MenuItem, Skeleton } from "@mui/material";
 import { useRouter } from "next/router";
-import { clearTerm, setTerm, term, termStatus } from "../provider/features/termslice";
+import { clearTerm, fetchPost, setTerm, term, termStatus } from "../provider/features/termslice";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { CircularProgress } from '@mui/material'
@@ -30,7 +30,10 @@ function Nav() {
   return (
     <nav id="nav" className="w-[100%] h-[10%] bg-black flex items-center justify-around">
       <div
-        onClick={() => router.push("/")}
+        onClick={() => {
+          router.push("/")
+          dispatch(fetchPost())
+        }}
         className="flex space-x-2 items-center cursor-pointer"
       >
         <Logo size={50} />

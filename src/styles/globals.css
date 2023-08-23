@@ -53,14 +53,14 @@
 .is-visible {
   opacity: 1;
 }
-.overlay {
-  transition: 0.4s;
+.card .overlay {
+  opacity: 0;
+  transition: all 0.4s ease-in-out;
 }
-.card{
-  transition: 1s;
-}
+
 .card:hover .overlay {
   transform: scale(1);
+  opacity: 1;
 }
 .grid-Wraper {
   display: grid;
@@ -131,4 +131,7 @@
   backdrop-filter: blur(5px) !important;
   -webkit-backdrop-filter: blur(5px) !important;
   border: 1px solid rgba(40, 31, 31, 0.3) !important;
+}
+.css-rflvzh{
+  background-color: transparent !important;
 }
