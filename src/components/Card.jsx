@@ -1,5 +1,5 @@
 import Trash from "../icon/Trash";
-import { Button, IconButton, Tooltip } from "@mui/material";
+import { Button, IconButton, Tooltip, Typography } from "@mui/material";
 import React, { useState } from "react";
 import LazyLoad from "react-lazy-load";
 import ImageIcon from "@mui/icons-material/Image";
@@ -9,12 +9,11 @@ import { token } from "../provider/features/userClice";
 import { deleteArt, status } from "../provider/features/myartSlice";
 import { useRouter } from "next/router";
 
-
 function Card({ obj }) {
   const dispatch = useDispatch();
   const tk = useSelector(token);
   const st = useSelector(status);
-  const router = useRouter()
+  const router = useRouter();
   const fr = obj.width / obj.height;
   console.log(obj);
   return (
@@ -37,27 +36,29 @@ function Card({ obj }) {
         />
       </LazyLoad> */}
       <div className=" top-0 left-0 w-full h-full absolute rounded-md  ">
-        <div className="overlay  scale-0 glassBg w-full h-full rounded-md transition relative flex justify-around items-center">
-          <div
-            onClick={() =>
-              dispatch(
-                deleteArt({
-                  token: tk,
-                  img: obj.img,
-                  id: obj.id,
-                })
-              )
-            }
-            className="absolute cursor-pointer w-[40px] h-[40px] top-2 right-2 rounded-full p-2 bg-red-600  text-white"
-          >
-            <Trash />
-          </div>
+        <div className="overlay  scale-0 linierBg w-full h-full rounded-md relative flex justify-around items-center">
+          <Tooltip title="Delete">
+            <div
+              onClick={() =>
+                dispatch(
+                  deleteArt({
+                    token: tk,
+                    img: obj.img,
+                    id: obj.id,
+                  })
+                )
+              }
+              className="absolute cursor-pointer w-[40px] h-[40px] top-2 right-2 rounded-full p-2 border border-blue-700  text-blue-700 hover:border-none hover:bg-red-600 hover:text-white transition"
+            >
+              <Trash />
+            </div>
+          </Tooltip>
           <div className="flex  space-x-3">
             <Tooltip title="View Image" className="w-[50px] h-[50px]">
               <IconButton
-              onClick={() => {
-                router.push(`/myart?id=${obj?.id}`)
-               }}
+                onClick={() => {
+                  router.push(`/myart?id=${obj?.id}`);
+                }}
                 disabled={st === "pending" ? true : false}
               >
                 <ImageIcon color="primary" fontSize="large" />
@@ -66,12 +67,19 @@ function Card({ obj }) {
 
             <Tooltip title="View Image as Post" className="w-[50px] h-[50px]">
               <IconButton
-                disabled={st === "pending" ? true : false}
-              >
+              onClick={()=>router.push(`/feed?id=${obj?.id}`)}
+               disabled={st === "pending" ? true : false}>
                 <NewspaperIcon color="primary" fontSize="large" />
               </IconButton>
             </Tooltip>
           </div>
+        </div>
+        <div className="absolute left-2 bottom-1 capitalize text-white">
+          <Typography variant="h6">{obj.tag}</Typography>
+          <Typography variant="caption">
+            {obj.react?.length > 0 && obj.react?.length}{" "}
+            {obj.react?.length > 0 && "people reacted to your post"}
+          </Typography>
         </div>
       </div>
     </div>

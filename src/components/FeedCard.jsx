@@ -15,11 +15,11 @@ import { setNotification } from "../provider/features/notifySlice";
 import "intersection-observer";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import { useRouter } from "next/router";
-
+import { CircularProgress } from "@mui/joy";
 
 function FeedCard({ obj }) {
   const componentRef = useRef(null);
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useDispatch();
   const [likes, setlikes] = useState([]);
   const [loves, setloves] = useState([]);
@@ -28,6 +28,7 @@ function FeedCard({ obj }) {
   const tk = useSelector(token);
   const { reactAction, loading } = useReact();
   const [isInviewport, setisInviewport] = useState(false);
+  const [imgloading, setimgloading] = useState(true);
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -90,13 +91,24 @@ function FeedCard({ obj }) {
           {obj.Artist.name}
         </Typography>
       </div>
-      <div className="w-full h-auto max-h-[500px] rounded-md overflow-scroll scrollbar-hide">
+      <div className="w-full relative h-auto min-h-[280px] sm:min-h-[400px] max-h-[500px] rounded-md overflow-scroll scrollbar-hide">
         {isInviewport && (
-          <img src={obj?.img} alt="Art Img" className="rounded-md" />
+          <React.Fragment>
+            {imgloading && <div className="absolute z-10 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+              <CircularProgress size="lg"/>
+              </div>}
+            <img
+              src={obj?.img}
+              alt="Art Img"
+              onLoad={() => setimgloading(false)}
+              onError={() => setimgloading(true)}
+              className={`rounded-md ${imgloading?"blur-md":"blur-0"}`}
+            />
+          </React.Fragment>
         )}
       </div>
       <div className="flex flex-col sm:flex-row sm:justify-between items-center mt-3">
-        <div >
+        <div>
           <Tooltip title="Like">
             <IconButton
               disabled={loading ? true : false}
@@ -173,12 +185,14 @@ function FeedCard({ obj }) {
             {dislikes.length}
           </Typography>
         </div>
-        <Button style={{
-          height:'35px',
-          width:'150px'
-        }} variant="outlined"
-        endIcon={<NewspaperIcon/>}
-        onClick={()=>router.push(`/feed?id=${obj.id}`)}
+        <Button
+          style={{
+            height: "35px",
+            width: "150px",
+          }}
+          variant="outlined"
+          endIcon={<NewspaperIcon />}
+          onClick={() => router.push(`/feed?id=${obj.id}`)}
         >
           Go to Post
         </Button>

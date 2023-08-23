@@ -5,6 +5,7 @@ import { termReducer } from "../features/termslice";
 import { myartReducer } from "../features/myartSlice";
 import { modelReducer } from "../features/modelSlice";
 import { feedReducer } from "../features/feedslice";
+import { myFovriteReducer } from "../features/myfovarite";
 
 export default  configureStore({
     reducer:{
@@ -13,6 +14,7 @@ export default  configureStore({
         term:termReducer,
         myart:myartReducer,
         model:modelReducer,
-        feed:feedReducer
+        feed:feedReducer,
+        myfovarite:myFovriteReducer
     }
 })

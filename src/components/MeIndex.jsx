@@ -1,17 +1,28 @@
 import { truncateString } from "../lib/truncate";
 import { removeUser, token, user } from "../provider/features/userClice";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import time from "time-ago";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Button, Typography } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import UserOnly from "./protected/UserOnly";
-import { clearMyArt, fetchMyPost, loading, myart } from "../provider/features/myartSlice";
+import {
+  clearMyArt,
+  fetchMyPost,
+  loading,
+  myart,
+} from "../provider/features/myartSlice";
 import Card from "./Card";
-import Loader from "./loder/Loader";
 import Loader2 from "./loder/Loader2";
 import LazyLoad from "react-lazy-load";
+import { fetchMyFovarite, myFv, myFvLd } from "../provider/features/myfovarite";
 
 function MeIndex() {
   const me = useSelector(user);
@@ -19,11 +30,15 @@ function MeIndex() {
   const ld = useSelector(loading);
   const dispath = useDispatch();
   const art = useSelector(myart);
+  const FvLd = useSelector(myFvLd)
+  const myfovarite = useSelector(myFv);
+  const [view, setview] = useState("Showcase");
   useEffect(() => {
-    if (!tk || art.length !== 0) return;
+    if (!tk || art.length !== 0 || myfovarite.length !== 0) return;
     dispath(fetchMyPost({ token: tk }));
+    dispath(fetchMyFovarite(tk));
   }, [tk]);
-
+  
   return (
     <UserOnly>
       <div className="w-full h-full overflow-scroll scrollbar-hide">
@@ -39,20 +54,20 @@ function MeIndex() {
               </LazyLoad>
             </div>
             <div className="w-3/5 sm:w-4/5 h-full space-y-1 flex flex-col ml-7 mt-5">
-              <Typography variant="h3" color='gainsboro'>
-              {truncateString(me?.user.name, 15)}
+              <Typography variant="h3" color="gainsboro">
+                {truncateString(me?.user.name, 15)}
               </Typography>
               <Typography variant="subtitle1" color="GrayText">
-              {truncateString(me?.user.baio, 50)}
+                {truncateString(me?.user.baio, 50)}
               </Typography>
-              <Typography variant="caption" color='GrayText'>
-              Joined at {time.ago(me?.user.jonedAt)}
+              <Typography variant="caption" color="GrayText">
+                Joined {time.ago(me?.user.jonedAt)}
               </Typography>
-             
+
               <Button
                 onClick={() => {
-                  dispath(removeUser())
-                  dispath(clearMyArt())
+                  dispath(removeUser());
+                  dispath(clearMyArt());
                 }}
                 className=" font-bold w-[200px] hidden sm:inline-flex"
                 variant="outlined"
@@ -66,11 +81,45 @@ function MeIndex() {
         </div>
         <div className="w-full h-2/3 ">
           <div className="w-full max-h-full ">
-            <div className="flex w-full justify-around items-center">
-              <h4 className="text-2xl text-gray-200 font-medium font-sans mt-2 mb-2 ml-2">
-                My Creation
-              </h4>
-              <div className="flex glassBg items-center h-[60%] w-[50%] rounded-md text-slate-500 space-x-3">
+            <div className="flex flex-col sm:flex-row space-y-2  w-full justify-around items-center sm:mt-2">
+              <FormControl
+                className="glassBg py-2 px-2 rounded-md flex-[.5] "
+                variant="outlined"
+              >
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Select View Type"
+                  variant="standard"
+                  style={{
+                    color: "whitesmoke",
+                    height: "40px",
+                    fontSize: "25px",
+                  }}
+                  value={view}
+                  onChange={(e) => setview(e.target.value)}
+                >
+                  <MenuItem
+                    style={{
+                      color: "whitesmoke",
+                      fontSize: "15px",
+                    }}
+                    value={"Showcase"}
+                  >
+                    Your Showcase
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      color: "whitesmoke",
+                      fontSize: "15px",
+                    }}
+                    value={"Favourite"}
+                  >
+                    Your Favourite
+                  </MenuItem>
+                </Select>
+              </FormControl>
+              <div className="flex glassBg items-center w-[80%] sm:h-[60%] sm:w-[50%] rounded-md text-slate-500 space-x-3">
                 <SearchIcon color="inherit" className="ml-2" />
                 <input
                   type="text"
@@ -79,14 +128,19 @@ function MeIndex() {
                 />
               </div>
             </div>
-            <div className="w-full mt-8 gallery p-5">
-              {ld ? (
-                <Loader2 />
-              ) : (
-                art?.map((e) => {
-                  return <Card obj={e} key={e.id} />;
-                })
-              )}
+            <div className="w-full mt-2 sm:mt-8 gallery p-5">
+              {view === "Showcase" && (
+                <React.Fragment>
+                  {ld ? (
+                    <Loader2 />
+                  ) : (
+                    art?.map((e) => {
+                      return <Card obj={e} key={e.id} />;
+                    })
+                  )}
+                </React.Fragment>
+              ) }
+              {view === "Favourite"&& (<div></div>)}
             </div>
           </div>
         </div>

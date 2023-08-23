@@ -23,8 +23,6 @@ export const login = createAsyncThunk(
       email,
       password,
     });
-    console.log(res);
-
     await localStorage.setItem("ai_artist", JSON.stringify(res.data));
     return res.data;
   }
