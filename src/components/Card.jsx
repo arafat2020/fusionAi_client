@@ -15,7 +15,6 @@ function Card({ obj }) {
   const st = useSelector(status);
   const router = useRouter();
   const fr = obj.width / obj.height;
-  console.log(obj);
   return (
     <div
       aria-disabled={st === "pending" ? true : false}

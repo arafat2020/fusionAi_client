@@ -42,9 +42,9 @@ function Nav() {
           <span className="text-blue-800 font-extrabold">ai</span>
         </h1>
       </div>
-      <div className="hidden sm:flex glassBg items-center h-[60%] w-[50%] rounded-md text-slate-500 space-x-3">
-        <div className="cursor-pointer" onClick={() => router.push("/")}>
-          <SearchIcon color="inherit" className="ml-2" />
+      <div className="hidden sm:flex glassBg items-center h-[60%] w-[50%] rounded-full p-1 text-slate-500 space-x-3">
+        <div className="cursor-pointer rounded-full animate-pulse" onClick={() => router.push("/")}>
+          <SearchIcon color="inherit"  className="ml-2 hover:scale-125 transition" />
         </div>
         <input
           onChange={(e) => dispatch(setTerm(e.target.value))}
@@ -52,7 +52,7 @@ function Nav() {
           placeholder="Search Image Art"
           className=" flex-grow bg-transparent outline-none"
         />
-        {srst === "searching" && <CircularProgress size={30}/>}
+        {srst === "searching" && <CircularProgress  size={30}/>}
       </div>
       {st === "Unathenticated" || (st === "ok" && me === null) ? (
         <div className="hidden sm:inline-flex">

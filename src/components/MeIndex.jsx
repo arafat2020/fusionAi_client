@@ -6,6 +6,7 @@ import time from "time-ago";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
   Button,
+  CircularProgress,
   FormControl,
   MenuItem,
   Select,
@@ -22,7 +23,8 @@ import {
 import Card from "./Card";
 import Loader2 from "./loder/Loader2";
 import LazyLoad from "react-lazy-load";
-import { fetchMyFovarite, myFv, myFvLd } from "../provider/features/myfovarite";
+import { clearMyFb, fetchMyFovarite, myFv, myFvLd } from "../provider/features/myfovarite";
+import Card3 from "./Card3";
 
 function MeIndex() {
   const me = useSelector(user);
@@ -30,7 +32,7 @@ function MeIndex() {
   const ld = useSelector(loading);
   const dispath = useDispatch();
   const art = useSelector(myart);
-  const FvLd = useSelector(myFvLd)
+  const FvLd = useSelector(myFvLd);
   const myfovarite = useSelector(myFv);
   const [view, setview] = useState("Showcase");
   useEffect(() => {
@@ -38,7 +40,7 @@ function MeIndex() {
     dispath(fetchMyPost({ token: tk }));
     dispath(fetchMyFovarite(tk));
   }, [tk]);
-  
+
   return (
     <UserOnly>
       <div className="w-full h-full overflow-scroll scrollbar-hide">
@@ -68,13 +70,15 @@ function MeIndex() {
                 onClick={() => {
                   dispath(removeUser());
                   dispath(clearMyArt());
+                  dispath(clearMyFb());
                 }}
+                disabled={ld && FvLd}
                 className=" font-bold w-[200px] hidden sm:inline-flex"
                 variant="outlined"
                 color="primary"
                 startIcon={<LogoutIcon />}
               >
-                Logout
+                {ld && FvLd?<CircularProgress />:'Logout'}
               </Button>
             </div>
           </div>
@@ -139,8 +143,15 @@ function MeIndex() {
                     })
                   )}
                 </React.Fragment>
-              ) }
-              {view === "Favourite"&& (<div></div>)}
+              )}
+              {view === "Favourite" &&
+                (FvLd ? (
+                  <Loader2 />
+                ) : (
+                  myfovarite.map((e) => {
+                    return <Card3 key={e.id} obj={e} />;
+                  })
+                ))}
             </div>
           </div>
         </div>

@@ -41,7 +41,10 @@
     -webkit-text-fill-color: transparent;
   }
   .linierBg{
-    background: linear-gradient(to bottom, rgba(5, 87, 250, 0.3), #0f0f0f);
+    background: linear-gradient(to bottom, rgba(5, 87, 250, 0.3), #030303);
+  }
+  .linierBg2{
+    background: linear-gradient(to bottom, rgba(105, 127, 250, 0.2), #070707);
   }
 }
 .LazyLoad {
@@ -135,3 +138,4 @@
 .css-rflvzh{
   background-color: transparent !important;
 }
+

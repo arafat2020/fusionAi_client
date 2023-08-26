@@ -98,10 +98,10 @@ function Card2({ obj }) {
   // console.log(Onmous);
 
   return (
-    <div className={`${fr > 1 ? "grid_wide" : "grid_tall"} relative`}>
+    <div className={`${fr > 1 ? "grid_wide" : "grid_tall"} relative rounded-md `}>
       {imgLoad && (
         <div className="absolute z-10 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
-          <CircularProgress size="md" color="neutral"/>
+          <CircularProgress size="md" color="primary"/>
         </div>
       )}
       <div

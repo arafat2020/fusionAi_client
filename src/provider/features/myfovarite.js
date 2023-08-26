@@ -20,6 +20,11 @@ const myfovariteSlice = createSlice({
         myfavorite:[],
         err:null
     },
+    reducers:{
+        clearMyFb:(state,action)=>{
+            state.myfavorite = []
+        }
+    },
     extraReducers:(builder)=>{
         builder.addCase(fetchMyFovarite.pending, (state) => {
             state.loading = true
@@ -42,3 +47,4 @@ const myfovariteSlice = createSlice({
 export const myFv = (state)=> state.myfovarite.myfavorite
 export const myFvLd = (state)=> state.myfovarite.loading
 export const myFovriteReducer = myfovariteSlice.reducer
+export const {clearMyFb} = myfovariteSlice.actions

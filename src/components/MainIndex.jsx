@@ -63,7 +63,7 @@ function MainIndex() {
         </h4>
         <div className=" min-w-[150px]  p-2">
           <FormControl fullWidth variant="outlined">
-            <InputLabel id="demo-simple-select-label"> View Type</InputLabel>
+            <InputLabel focused id="demo-simple-select-label"> View Type</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
