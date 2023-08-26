@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const isDev = true;
+const isDev = false;
 
 export const client_url = "http://localhost:3000";
 export const server_url = "http://localhost:5000";
