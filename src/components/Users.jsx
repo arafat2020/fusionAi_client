@@ -4,7 +4,7 @@ import { Avatar, Skeleton, Tooltip, Typography } from "@mui/material";
 
 function Users() {
   const { loading, res, err } = useUsers();
-  console.log(loading, res);
+  // console.log(loading, res);
   const Res = () => {
     return (
       <>

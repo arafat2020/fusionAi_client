@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import React from "react";
 
 const modelSlice = createSlice({
   name: "model",
   initialState: {
     open: false,
-    component: null,
+    component: React.Component,
     title: null,
   },
   reducers: {

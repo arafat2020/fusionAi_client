@@ -1,10 +1,12 @@
+import React from "react";
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 const notifySlice = createSlice({
   name: "notify",
   initialState: {
     msg: "",
-    icon: null,
+    icon: React.Component,
     open: false,
   },
   reducers: {

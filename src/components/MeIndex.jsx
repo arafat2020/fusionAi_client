@@ -23,8 +23,19 @@ import {
 import Card from "./Card";
 import Loader2 from "./loder/Loader2";
 import LazyLoad from "react-lazy-load";
-import { clearMyFb, fetchMyFovarite, myFv, myFvLd } from "../provider/features/myfovarite";
+import {
+  clearMyFb,
+  fetchMyFovarite,
+  myFv,
+  myFvLd,
+} from "../provider/features/myfovarite";
 import Card3 from "./Card3";
+import {
+  fetchMyGroup,
+  myGroup,
+  loading as myGrLoad,
+} from "../provider/features/myGroup";
+import Card4 from "./Card4";
 
 function MeIndex() {
   const me = useSelector(user);
@@ -33,14 +44,17 @@ function MeIndex() {
   const dispath = useDispatch();
   const art = useSelector(myart);
   const FvLd = useSelector(myFvLd);
+  const myGrLD = useSelector(myGrLoad);
   const myfovarite = useSelector(myFv);
+  const myGr = useSelector(myGroup);
   const [view, setview] = useState("Showcase");
   useEffect(() => {
     if (!tk || art.length !== 0 || myfovarite.length !== 0) return;
     dispath(fetchMyPost({ token: tk }));
     dispath(fetchMyFovarite(tk));
+    dispath(fetchMyGroup({ tk }));
   }, [tk]);
-
+  console.log(myGr);
   return (
     <UserOnly>
       <div className="w-full h-full overflow-scroll scrollbar-hide">
@@ -78,7 +92,7 @@ function MeIndex() {
                 color="primary"
                 startIcon={<LogoutIcon />}
               >
-                {ld && FvLd?<CircularProgress />:'Logout'}
+                {ld && FvLd ? <CircularProgress /> : "Logout"}
               </Button>
             </div>
           </div>
@@ -121,6 +135,15 @@ function MeIndex() {
                   >
                     Your Favourite
                   </MenuItem>
+                  <MenuItem
+                    style={{
+                      color: "whitesmoke",
+                      fontSize: "15px",
+                    }}
+                    value={"Group"}
+                  >
+                    Your Group
+                  </MenuItem>
                 </Select>
               </FormControl>
               <div className="flex glassBg items-center w-[80%] sm:h-[60%] sm:w-[50%] rounded-md text-slate-500 space-x-3">
@@ -150,6 +173,14 @@ function MeIndex() {
                 ) : (
                   myfovarite.map((e) => {
                     return <Card3 key={e.id} obj={e} />;
+                  })
+                ))}
+              {view === "Group" &&
+                (myGrLD ? (
+                  <Loader2 />
+                ) : (
+                  myGr?.map((e) => {
+                    return <Card4 key={e.id} obj={e}/>;
                   })
                 ))}
             </div>

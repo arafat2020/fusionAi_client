@@ -1,6 +1,6 @@
 import Trash from "../icon/Trash";
 import { Button, IconButton, Tooltip, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import LazyLoad from "react-lazy-load";
 import ImageIcon from "@mui/icons-material/Image";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
@@ -8,21 +8,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { token } from "../provider/features/userClice";
 import { deleteArt, status } from "../provider/features/myartSlice";
 import { useRouter } from "next/router";
+import useObserver from "../hooks/useObserver";
 
 function Card({ obj }) {
   const dispatch = useDispatch();
   const tk = useSelector(token);
   const st = useSelector(status);
+  const ref = useRef();
+  const [imgload, setimgload] = useState(true);
+  const { isInviewport } = useObserver({ componentRef: ref });
   const router = useRouter();
   const fr = obj.width / obj.height;
+  const imgInstance = new Image();
+  imgInstance.src = isInviewport && obj?.img;
+  imgInstance.onload = () => {
+    if (isInviewport) setimgload(false);
+  };
   return (
     <div
+      ref={ref}
       aria-disabled={st === "pending" ? true : false}
-      className={`card w-auto h-auto overflow-hidden relative rounded-md ${
-        fr > 1 ? "grid_wide" : "grid_tall"
-      } ${st === "pending" ? "opacity-50" : "opacity-[1]"}`}
+      className={`card w-auto h-auto overflow-hidden relative rounded-md 
+      ${fr > 1 ? "grid_wide" : "grid_tall"} 
+      ${st === "pending" ? "opacity-50" : "opacity-[1]"} 
+      ${imgload ? "blur-md" : "blur-0"}
+      `}
       style={{
-        backgroundImage: `url(${obj?.img})`,
+        backgroundImage: `url(${isInviewport ? obj?.img : ""})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
@@ -66,8 +78,9 @@ function Card({ obj }) {
 
             <Tooltip title="View Image as Post" className="w-[50px] h-[50px]">
               <IconButton
-              onClick={()=>router.push(`/feed?id=${obj?.id}`)}
-               disabled={st === "pending" ? true : false}>
+                onClick={() => router.push(`/feed?id=${obj?.id}`)}
+                disabled={st === "pending" ? true : false}
+              >
                 <NewspaperIcon color="primary" fontSize="large" />
               </IconButton>
             </Tooltip>

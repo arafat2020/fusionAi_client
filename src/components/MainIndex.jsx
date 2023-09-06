@@ -20,6 +20,7 @@ import FeedRoundedIcon from "@mui/icons-material/FeedRounded";
 import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded";
 import FeedCard from "./FeedCard";
 import Users from "./Users";
+import FeedCardDsiplay from "./FeedCardDsiplay";
 
 function MainIndex() {
   const res = useSelector(reasult);
@@ -100,6 +101,7 @@ function MainIndex() {
       </div>
       <Users/>
       <div className={`   ${view==='card'?'gallery w-full':'max-w-[1000px] m-auto '} p-1 sm:p-5`}>
+        <FeedCardDsiplay/>
         {ld && st === "pending" ? (
           <Loader2 />
         ) : view == "card" ? (

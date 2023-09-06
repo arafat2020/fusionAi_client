@@ -10,7 +10,10 @@ function Model() {
     const dispatch = useDispatch()
   return (
     <Dialog open={open} onClose={()=>dispatch(clearModel())}>
-        <DialogTitle>
+        <DialogTitle style={{
+          background:'black',
+          color:'whitesmoke'
+        }}>
             {modeltitle}
         </DialogTitle>
         {component}
