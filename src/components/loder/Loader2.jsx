@@ -3,7 +3,7 @@ import React from 'react'
 
 function Loader2() {
   return (
-    <div className='w-full h-full flex justify-around items-center'>
+    <div className='w-screen  flex justify-around '>
         <CircularProgress size={100}/>
     </div>
   )

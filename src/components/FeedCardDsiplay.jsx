@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../lib/deplument";
 import Card4 from "./Card4";
 import { CircularProgress } from "@mui/joy";
+import Loader from "./loder/Loader";
 
 function FeedCardDsiplay() {
   const [ld, setld] = useState(true);
@@ -17,8 +18,8 @@ function FeedCardDsiplay() {
   console.log(group);
   return (
     <>
-      {ld === false &&
-        group.map((e) => {
+      {ld ?<Loader limit={3}/>
+       : group.map((e) => {
           return <Card4 key={e.id} obj={e} />;
         })}
     </>
