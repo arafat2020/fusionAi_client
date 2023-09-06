@@ -101,7 +101,7 @@ function MainIndex() {
       </div>
       <Users/>
       <div className={`   ${view==='card'?'gallery w-full':'max-w-[1000px] m-auto '} p-1 sm:p-5`}>
-        <FeedCardDsiplay/>
+       {view==='card' && <FeedCardDsiplay/>}
         {ld && st === "pending" ? (
           <Loader2 />
         ) : view == "card" ? (
