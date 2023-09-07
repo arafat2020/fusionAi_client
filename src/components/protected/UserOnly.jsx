@@ -1,13 +1,13 @@
 import { status, user } from "../../provider/features/userClice";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 function UserOnly({ children }) {
   const me = useSelector(user);
   const st = useSelector(status);
   const router = useRouter();
-  useEffect(() => {
+  useMemo(() => {
     if (st === "pending") return;
     if (
       (me === null && st === "Unathenticated") ||

@@ -36,6 +36,7 @@ import {
   loading as myGrLoad,
 } from "../provider/features/myGroup";
 import Card4 from "./Card4";
+import { useTransition } from "react";
 
 function MeIndex() {
   const me = useSelector(user);
@@ -48,6 +49,8 @@ function MeIndex() {
   const myfovarite = useSelector(myFv);
   const myGr = useSelector(myGroup);
   const [view, setview] = useState("Showcase");
+  const [trload, startTrnsition] = useTransition();
+
   useEffect(() => {
     if (!tk || art.length !== 0 || myfovarite.length !== 0) return;
     dispath(fetchMyPost({ token: tk }));
@@ -101,7 +104,7 @@ function MeIndex() {
           <div className="w-full max-h-full ">
             <div className="flex flex-col sm:flex-row space-y-2  w-full justify-around items-center sm:mt-2">
               <FormControl
-                className="glassBg py-2 px-2 rounded-md flex-[.5] "
+                className="glassBg !py-2 px-2 rounded-md flex-[.5] "
                 variant="outlined"
               >
                 <Select
@@ -115,7 +118,9 @@ function MeIndex() {
                     fontSize: "25px",
                   }}
                   value={view}
-                  onChange={(e) => setview(e.target.value)}
+                  onChange={(e) =>
+                    startTrnsition(() => setview(e.target.value))
+                  }
                 >
                   <MenuItem
                     style={{
@@ -180,7 +185,7 @@ function MeIndex() {
                   <Loader2 />
                 ) : (
                   myGr?.map((e) => {
-                    return <Card4 key={e.id} obj={e}/>;
+                    return <Card4 key={e.id} obj={e} />;
                   })
                 ))}
             </div>

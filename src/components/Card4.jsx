@@ -54,14 +54,14 @@ function Card4({ obj }) {
         }}
       >
         <div className="w-full h-full glassBg rounded-md">
-          {open && (
+          {open ? (
             <Card4Overlay
               open={open}
               obj={obj}
               index={index}
               setindex={setindex}
             />
-          )}
+          ) : null}
           <div className="flex w-full h-full justify-around items-center">
             <div
               style={{

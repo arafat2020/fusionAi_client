@@ -7,34 +7,47 @@ import { removeUser, status, user } from "../provider/features/userClice";
 import { truncateString } from "../lib/truncate";
 import { Button, IconButton, Menu, MenuItem, Skeleton } from "@mui/material";
 import { useRouter } from "next/router";
-import { clearTerm, fetchPost, setTerm, term, termStatus } from "../provider/features/termslice";
+import {
+  clearTerm,
+  fetchPost,
+  setTerm,
+  term,
+  termStatus,
+} from "../provider/features/termslice";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { CircularProgress } from '@mui/material'
-
+import { CircularProgress } from "@mui/material";
 
 function Nav() {
   const st = useSelector(status);
-  const srst = useSelector(termStatus)
+  const srst = useSelector(termStatus);
   const me = useSelector(user);
   const router = useRouter();
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const [isPending, startTransition] = useTransition()
+  const [anchorEl, setAnchorEl] = useState();
+  const open = useMemo(() => {
+    return Boolean(anchorEl);
+  }, [anchorEl]);
+  const [isPending, startTransition] = useTransition();
+  // const [isPending2, startTransition2] = useTransition();
 
   const handleClose = () => {
     setAnchorEl(null);
   };
   // console.log(anchorEl);
 
-
   return (
-    <nav id="nav" className="w-[100%] h-[10%] bg-black flex items-center justify-around">
+    <nav
+      id="nav"
+      className="w-[100%] h-[10%] bg-black flex items-center justify-around"
+    >
       <div
         onClick={() => {
-          router.push("/")
-          // dispatch(fetchPost())
+          router.push("/");
+          startTransition(() =>{
+            dispatch(clearTerm())
+            dispatch(fetchPost())
+          });
         }}
         className="flex space-x-2 items-center cursor-pointer"
       >
@@ -45,8 +58,14 @@ function Nav() {
         </h1>
       </div>
       <div className="hidden sm:flex glassBg items-center h-[60%] w-[50%] rounded-full p-1 text-slate-500 space-x-3">
-        <div className="cursor-pointer rounded-full animate-pulse" onClick={() => router.push("/")}>
-          <SearchIcon color="inherit"  className="ml-2 hover:scale-125 transition" />
+        <div
+          className="cursor-pointer rounded-full animate-pulse"
+          onClick={() => router.push("/")}
+        >
+          <SearchIcon
+            color="inherit"
+            className="ml-2 hover:scale-125 transition"
+          />
         </div>
         <input
           onChange={(e) => dispatch(setTerm(e.target.value))}
@@ -54,24 +73,24 @@ function Nav() {
           placeholder="Search Image Art"
           className=" flex-grow bg-transparent outline-none"
         />
-        {srst === "searching" && <CircularProgress  size={30}/>}
+        {srst === "searching" && <CircularProgress size={30} />}
       </div>
       {st === "Unathenticated" || (st === "ok" && me === null) ? (
-        <div className="hidden sm:inline-flex">
+        <div className="!hidden sm:inline-flex">
           <Button
-          variant="outlined"
-          className="!font-bold"
-          endIcon={<LoginIcon />}
-          onClick={() => router.push("/login")}
-        >
-          Login
-        </Button>
+            variant="outlined"
+            className="!font-bold"
+            endIcon={<LoginIcon />}
+            onClick={() => router.push("/login")}
+          >
+            Login
+          </Button>
         </div>
       ) : (
         <div
           onClick={async () => {
-            await dispatch(clearTerm());
             router.push("/me");
+            startTransition(() => dispatch(clearTerm()));
           }}
           className="hidden glassBg p-1 text-slate-500 sm:flex items-center space-x-2 font-bold rounded-full cursor-pointer"
         >
@@ -109,49 +128,55 @@ function Nav() {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-       
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
         style={{
-          backgroundColor: 'rgba(24, 25, 26, .4)',
-        
+          backgroundColor: "rgba(24, 25, 26, .4)",
         }}
       >
-        <MenuItem
-          
-        >
+        <MenuItem>
           <div className="flex glassBg items-center h-[60%] w-[1000%] rounded-md text-slate-500 space-x-3">
-            <div className="cursor-pointer" onClick={() => router.push("/")}>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                router.push("/");
+                setAnchorEl(false);
+              }}
+            >
               <SearchIcon color="inherit" className="ml-2" />
             </div>
             <input
-              onChange={(e) => dispatch(setTerm(e.target.value))}
+              onChange={(e) => {
+                dispatch(setTerm(e.target.value));
+              }}
               type="text"
               placeholder="Search Image Art"
               className=" flex-grow bg-transparent outline-none"
             />
           </div>
         </MenuItem>
-        <MenuItem
-          
-        >
+        <MenuItem>
           {st === "Unathenticated" || (st === "ok" && me === null) ? (
             <div>
               <Button
-              variant="outlined"
-              className="!font-bold"
-              endIcon={<LoginIcon />}
-              onClick={() => router.push("/login")}
-            >
-              Login
-            </Button>
+                variant="outlined"
+                className="!font-bold"
+                endIcon={<LoginIcon />}
+                onClick={() => {
+                  router.push("/login");
+                  setAnchorEl(null);
+                }}
+              >
+                Login
+              </Button>
             </div>
           ) : (
             <div
-              onClick={ () => {
+              onClick={() => {
                 router.push("/me");
-                startTransition(()=>dispatch(clearTerm()))
+                setAnchorEl(null);
+                startTransition(() => dispatch(clearTerm()));
               }}
               className=" glassBg p-1 text-slate-500 flex items-center space-x-2 font-bold rounded-full cursor-pointer"
             >
@@ -175,8 +200,11 @@ function Nav() {
         </MenuItem>
         <MenuItem>
           <Button
-            onClick={() => dispatch(removeUser())}
-            className={`font-bold ${me===null && '!hidden'}`}
+            onClick={() => {
+              setAnchorEl(null);
+              dispatch(removeUser());
+            }}
+            className={`font-bold ${me === null && "!hidden"}`}
             variant="outlined"
             color="primary"
             startIcon={<LogoutIcon />}

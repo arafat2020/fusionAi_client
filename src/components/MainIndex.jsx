@@ -8,7 +8,7 @@ import {
   status,
   term,
 } from "../provider/features/termslice";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader2 from "./loder/Loader2";
 import Card2 from "./Card2";
@@ -30,6 +30,8 @@ function MainIndex() {
   const q = useSelector(term);
   const st = useSelector(status);
   const [view, setview] = useState("card");
+  const tr = useSelector(term);
+  const [trload,startTrnsition]= useTransition()
   const dispatch = useDispatch();
   useEffect(() => {
     if (res.length > 0) return;
@@ -65,7 +67,10 @@ function MainIndex() {
         </h4>
         <div className=" min-w-[150px]  p-2">
           <FormControl fullWidth variant="outlined">
-            <InputLabel focused id="demo-simple-select-label"> View Type</InputLabel>
+            <InputLabel focused id="demo-simple-select-label">
+              {" "}
+              View Type
+            </InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -76,7 +81,7 @@ function MainIndex() {
                 fontSize: "15px",
               }}
               value={view}
-              onChange={(e) => setview(e.target.value)}
+              onChange={(e) => startTrnsition(()=>setview(e.target.value))}
             >
               <MenuItem
                 style={{
@@ -100,10 +105,13 @@ function MainIndex() {
           </FormControl>
         </div>
       </div>
-      <Users/>
-      <div className={`   ${view==='card'?'gallery w-full':'max-w-[1000px] m-auto '} p-1 sm:p-5`}>
-
-       {view==='card' && <FeedCardDsiplay/>}
+      <Users />
+      <div
+        className={`   ${
+          view === "card" ? "gallery w-full" : "max-w-[1000px] m-auto "
+        } p-1 sm:p-5`}
+      >
+        {view === "card" && !tr ? <FeedCardDsiplay /> : null}
         {ld && st === "pending" ? (
           <Loader limit={3} />
         ) : view == "card" ? (
