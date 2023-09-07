@@ -81,7 +81,7 @@ function MainIndex() {
                 fontSize: "15px",
               }}
               value={view}
-              onChange={(e) => startTrnsition(()=>setview(e.target.value))}
+              onChange={(e) => setview(e.target.value)}
             >
               <MenuItem
                 style={{

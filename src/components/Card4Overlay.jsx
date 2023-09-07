@@ -1,9 +1,11 @@
 import { Checkbox } from "@mui/joy";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Button, Typography } from "@mui/material";
 import React, { useRef } from "react";
 import LzyAvater from "./LzyAvater";
+import { useRouter } from "next/router";
 
 function Card4Overlay({ open = false, obj, index, setindex }) {
+  const router = useRouter();
   return (
     <div
       className={` w-full h-full glassBg rounded-md absolute top-0 transition-[.7s] left-0 z-10 ${
@@ -24,7 +26,7 @@ function Card4Overlay({ open = false, obj, index, setindex }) {
           })`,
         }}
       ></div>
-      <div className="absolute top-2 left-2">
+      <div className="absolute top-2 left-2 flex flex-col">
         <div className="flex capitalize text-white space-x-2 items-center">
           <Avatar
             src={obj?.Group[index]?.Art.Artist.profilePic}
@@ -43,6 +45,16 @@ function Card4Overlay({ open = false, obj, index, setindex }) {
             </Typography>
           </div>
         </div>
+        <Button
+          onClick={() => router.push(`/feed?id=${obj?.Group[index]?.Art.id}`)}
+          variant="contained"
+          className="!glassBg !rounded-md"
+          style={{
+            width: 150,
+          }}
+        >
+          Visite
+        </Button>
       </div>
       <div className="w-full h-full">
         <div className="w-full overflow-x-scroll scrollbar-hide absolute z-20 flex left-0 bottom-0 space-x-2 p-1">
@@ -54,7 +66,7 @@ function Card4Overlay({ open = false, obj, index, setindex }) {
                   key={e.id}
                   onClick={() => setindex(parseInt(i))}
                 >
-                 {open &&  <LzyAvater i={i} index={index} e={e} />}
+                  <LzyAvater i={i} index={index} e={e} />
                 </div>
               );
             })}

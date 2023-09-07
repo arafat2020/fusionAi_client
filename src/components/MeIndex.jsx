@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import time from "time-ago";
 import LogoutIcon from "@mui/icons-material/Logout";
+import dynamic from "next/dynamic";
 import {
   Button,
   CircularProgress,
@@ -20,7 +21,9 @@ import {
   loading,
   myart,
 } from "../provider/features/myartSlice";
-import Card from "./Card";
+const Card = dynamic(()=>import('./Card'),{
+  loading:()=><h6 className="text-white font-sans">Loading........</h6>
+});
 import Loader2 from "./loder/Loader2";
 import LazyLoad from "react-lazy-load";
 import {
@@ -29,13 +32,17 @@ import {
   myFv,
   myFvLd,
 } from "../provider/features/myfovarite";
-import Card3 from "./Card3";
+const Card3 = dynamic(()=>import('./Card3'),{
+  loading:()=><h6 className="text-white font-sans">Loading........</h6>
+});;
 import {
   fetchMyGroup,
   myGroup,
   loading as myGrLoad,
 } from "../provider/features/myGroup";
-import Card4 from "./Card4";
+const Card4 = dynamic(()=>import('./Card4'),{
+  loading:()=><h6 className="text-white font-sans">Loading........</h6>
+});;
 import { useTransition } from "react";
 
 function MeIndex() {
@@ -52,12 +59,12 @@ function MeIndex() {
   const [trload, startTrnsition] = useTransition();
 
   useEffect(() => {
-    if (!tk || art.length !== 0 || myfovarite.length !== 0) return;
+    if (!tk ) return;
     dispath(fetchMyPost({ token: tk }));
     dispath(fetchMyFovarite(tk));
     dispath(fetchMyGroup({ tk }));
   }, [tk]);
-  console.log(myGr);
+  // console.log(myGr);
   return (
     <UserOnly>
       <div className="w-full h-full overflow-scroll scrollbar-hide">
@@ -90,7 +97,7 @@ function MeIndex() {
                   dispath(clearMyFb());
                 }}
                 disabled={ld && FvLd}
-                className=" font-bold w-[200px] !hidden sm:inline-flex"
+                className=" font-bold w-[200px] !hidden sm:!inline-flex"
                 variant="outlined"
                 color="primary"
                 startIcon={<LogoutIcon />}
@@ -101,7 +108,7 @@ function MeIndex() {
           </div>
         </div>
         <div className="w-full h-2/3 ">
-          <div className="w-full max-h-full ">
+          <div className="w-full max-h-full ">/
             <div className="flex flex-col sm:flex-row space-y-2  w-full justify-around items-center sm:mt-2">
               <FormControl
                 className="glassBg !py-2 !px-2 rounded-md flex-[.5] "
@@ -119,7 +126,7 @@ function MeIndex() {
                   }}
                   value={view}
                   onChange={(e) =>
-                    startTrnsition(() => setview(e.target.value))
+                   setview(e.target.value)
                   }
                 >
                   <MenuItem

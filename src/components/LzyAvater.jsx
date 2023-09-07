@@ -9,7 +9,7 @@ function LzyAvater({ i, index, e }) {
     <div
       className={`p-1 rounded-full border ${
         index === i ? "border-blue-500 opacity-100" : "border-none opacity-40"
-      }  hover:opacity-100`}
+      }  hover:opacity-100 transition`}
     >
       <Tooltip title={e.Art?.tag}>
         {imgLoad ? (
