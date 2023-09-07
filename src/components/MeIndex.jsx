@@ -90,7 +90,7 @@ function MeIndex() {
                   dispath(clearMyFb());
                 }}
                 disabled={ld && FvLd}
-                className=" font-bold w-[200px] hidden sm:inline-flex"
+                className=" font-bold w-[200px] !hidden sm:inline-flex"
                 variant="outlined"
                 color="primary"
                 startIcon={<LogoutIcon />}
@@ -104,7 +104,7 @@ function MeIndex() {
           <div className="w-full max-h-full ">
             <div className="flex flex-col sm:flex-row space-y-2  w-full justify-around items-center sm:mt-2">
               <FormControl
-                className="glassBg !py-2 px-2 rounded-md flex-[.5] "
+                className="glassBg !py-2 !px-2 rounded-md flex-[.5] "
                 variant="outlined"
               >
                 <Select
