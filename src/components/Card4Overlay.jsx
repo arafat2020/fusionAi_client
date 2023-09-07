@@ -54,7 +54,7 @@ function Card4Overlay({ open = false, obj, index, setindex }) {
                   key={e.id}
                   onClick={() => setindex(parseInt(i))}
                 >
-                  <LzyAvater i={i} index={index} e={e} />
+                 {open &&  <LzyAvater i={i} index={index} e={e} />}
                 </div>
               );
             })}

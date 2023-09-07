@@ -4,14 +4,23 @@ import { Avatar, Checkbox, CircularProgress } from "@mui/joy";
 import useObserver from "../hooks/useObserver";
 import { Typography } from "@mui/material";
 import { truncateString } from "../lib/truncate";
-import Card4Overlay from "./Card4Overlay";
+import dynamic from "next/dynamic";
+import Loader2 from "./loder/Loader2";
+
+const Card4Overlay = dynamic(() => import("./Card4Overlay"), {
+  loading: () => <Loader2 />,
+});
 
 function Card4({ obj }) {
   const ref = useRef();
   const { isInviewport } = useObserver({ componentRef: ref });
-  const [index, setindex] = useState(0)
+  const [index, setindex] = useState(0);
   const { imgLoad } = useImageLoad({
-    url: isInviewport ? (obj.Group[0] ? obj.Group[0].Art.cmp : './logo.jpg') : null,
+    url: isInviewport
+      ? obj.Group[0]
+        ? obj.Group[0].Art.cmp
+        : "./logo.jpg"
+      : null,
   });
   const [open, setopen] = useState(false);
   return (
@@ -45,7 +54,14 @@ function Card4({ obj }) {
         }}
       >
         <div className="w-full h-full glassBg rounded-md">
-          <Card4Overlay open={open} obj={obj} index={index} setindex={setindex}/>
+          {open && (
+            <Card4Overlay
+              open={open}
+              obj={obj}
+              index={index}
+              setindex={setindex}
+            />
+          )}
           <div className="flex w-full h-full justify-around items-center">
             <div
               style={{
@@ -82,7 +98,6 @@ function Card4({ obj }) {
             </div>
           </div>
         </div>
-       
       </div>
     </div>
   );
