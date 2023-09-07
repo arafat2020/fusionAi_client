@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../lib/deplument";
 import Card4 from "./Card4";
-import { CircularProgress } from "@mui/joy";
 import Loader from "./loder/Loader";
 
 function FeedCardDsiplay() {

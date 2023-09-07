@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useTransition } from "react";
 import Logo from "./Logo";
 import SearchIcon from "@mui/icons-material/Search";
 import LoginIcon from "@mui/icons-material/Login";
@@ -21,18 +21,20 @@ function Nav() {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [isPending, startTransition] = useTransition()
 
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log(anchorEl);
+  // console.log(anchorEl);
+
 
   return (
     <nav id="nav" className="w-[100%] h-[10%] bg-black flex items-center justify-around">
       <div
         onClick={() => {
           router.push("/")
-          dispatch(fetchPost())
+          // dispatch(fetchPost())
         }}
         className="flex space-x-2 items-center cursor-pointer"
       >
@@ -147,9 +149,9 @@ function Nav() {
             </div>
           ) : (
             <div
-              onClick={async () => {
-                await dispatch(clearTerm());
+              onClick={ () => {
                 router.push("/me");
+                startTransition(()=>dispatch(clearTerm()))
               }}
               className=" glassBg p-1 text-slate-500 flex items-center space-x-2 font-bold rounded-full cursor-pointer"
             >
