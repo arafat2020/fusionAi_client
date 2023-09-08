@@ -76,7 +76,7 @@ function Nav() {
         {srst === "searching" && <CircularProgress size={30} />}
       </div>
       {st === "Unathenticated" || (st === "ok" && me === null) ? (
-        <div className="!hidden sm:inline-flex">
+        <div className="!hidden sm:!inline-flex">
           <Button
             variant="outlined"
             className="!font-bold"
