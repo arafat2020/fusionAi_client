@@ -8,6 +8,7 @@ import {
   status,
   term,
 } from "../provider/features/termslice";
+import dynamic from "next/dynamic";
 import React, { useEffect, useState, useTransition } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader2 from "./loder/Loader2";
@@ -18,10 +19,19 @@ import { InputLabel, MenuItem, Select } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import FeedRoundedIcon from "@mui/icons-material/FeedRounded";
 import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded";
-import FeedCard from "./FeedCard";
+const FeedCard = dynamic(() => import("./FeedCard"), {
+  loading: () => (
+    <h6 className="text-white font-sans w-full text-center p-3">
+      Loading........
+    </h6>
+  ),
+});
 import Users from "./Users";
-import FeedCardDsiplay from "./FeedCardDsiplay";
+const FeedCardDsiplay = dynamic(() => import("./FeedCardDsiplay"), {
+  loading: () => <h6 className="text-white font-sans">Loading........</h6>,
+});
 import Loader from "./loder/Loader";
+import WorkspacesIcon from "@mui/icons-material/Workspaces";
 
 function MainIndex() {
   const res = useSelector(reasult);
@@ -31,7 +41,7 @@ function MainIndex() {
   const st = useSelector(status);
   const [view, setview] = useState("card");
   const tr = useSelector(term);
-  const [trload,startTrnsition]= useTransition()
+  const [trload, startTrnsition] = useTransition();
   const dispatch = useDispatch();
   useEffect(() => {
     if (res.length > 0) return;
@@ -62,7 +72,7 @@ function MainIndex() {
   return (
     <div className="w-full h-full overflow-scroll scrollbar-hide p-5">
       <div className="flex flex-col sm:flex-row sm:justify-between">
-        <h4 className="text-2xl text-gray-200 font-medium font-sans mt-2  ml-2">
+        <h4 className="text-xl sm:text-2xl text-gray-200 font-medium font-sans mt-2  ml-2">
           Explore and React New Creation
         </h4>
         <div className=" min-w-[150px]  p-2">
@@ -97,6 +107,15 @@ function MainIndex() {
                   color: "steelblue",
                   fontSize: "15px",
                 }}
+                value={"group"}
+              >
+                <WorkspacesIcon /> Group View
+              </MenuItem>
+              <MenuItem
+                style={{
+                  color: "steelblue",
+                  fontSize: "15px",
+                }}
                 value={"feed"}
               >
                 <FeedRoundedIcon /> Feed View
@@ -108,11 +127,12 @@ function MainIndex() {
       <Users />
       <div
         className={`   ${
-          view === "card" ? "gallery w-full" : "max-w-[1000px] m-auto "
+          view !== "feed" ? "gallery w-full" : "max-w-[1000px] m-auto "
         } p-1 sm:p-5`}
       >
-        {view === "card" && !tr ? <FeedCardDsiplay /> : null}
-        {ld && st === "pending" ? (
+        {/* {view === "card" && !tr ? <FeedCardDsiplay /> : null} */}
+
+        {/* {ld && st === "pending" ? (
           <Loader limit={3} />
         ) : view == "card" ? (
           res.map((e) => {
@@ -122,6 +142,27 @@ function MainIndex() {
           res.map((e) => {
             return <FeedCard obj={e} key={e.id} />;
           })
+        )} */}
+        {ld && st === "pending" ? (
+          view === "feed" ? (
+            <Loader2 />
+          ) : (
+            <Loader limit={3} />
+          )
+        ) : (
+          <React.Fragment>
+            {view === "group" ? <FeedCardDsiplay /> : null}
+            {view === "feed"
+              ? res.map((e) => {
+                  return <FeedCard obj={e} key={e.id} />;
+                })
+              : null}
+            {view === "card"
+              ? res.map((e) => {
+                  return <Card2 obj={e} key={e.id} />;
+                })
+              : null}
+          </React.Fragment>
         )}
       </div>
     </div>
