@@ -7,6 +7,8 @@ import {
   searchPost,
   status,
   term,
+  limit,
+  reFetchPost,
 } from "../provider/features/termslice";
 import dynamic from "next/dynamic";
 import React, { useEffect, useState, useTransition } from "react";
@@ -35,6 +37,7 @@ import WorkspacesIcon from "@mui/icons-material/Workspaces";
 
 function MainIndex() {
   const res = useSelector(reasult);
+  const lm = useSelector(limit);
   const ld = useSelector(loading);
   const error = useSelector(err);
   const q = useSelector(term);
@@ -43,6 +46,7 @@ function MainIndex() {
   const tr = useSelector(term);
   const [trload, startTrnsition] = useTransition();
   const dispatch = useDispatch();
+  const [skip, setSkip] = useState(0)
   useEffect(() => {
     if (res.length > 0) return;
     dispatch(fetchPost());
@@ -68,7 +72,7 @@ function MainIndex() {
     }
     if (error) loader();
   }, [error]);
-
+console.log(res);
   return (
     <div className="w-full h-full overflow-scroll scrollbar-hide p-5">
       <div className="flex flex-col sm:flex-row sm:justify-between">
@@ -165,6 +169,21 @@ function MainIndex() {
           </React.Fragment>
         )}
       </div>
+      {ld && st === "pending" ? null : (
+        <div className="w-full flex justify-around items-center mb-5">
+          <button
+            onClick={async() => {
+              await dispatch(reFetchPost({
+                skip:skip+10
+              }));
+              setSkip(skip=>skip+=10)
+            }}
+            className=" text-white py-2 px-3 font-sans font-bold border border-blue-700 rounded-md"
+          >
+            Load More
+          </button>
+        </div>
+      )}
     </div>
   );
 }
