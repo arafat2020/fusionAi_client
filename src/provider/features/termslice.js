@@ -6,10 +6,13 @@ export const fetchPost = createAsyncThunk("post/fetch", async () => {
   const res = await axiosInstance.get("/getPost");
   return res.data;
 });
-export const reFetchPost = createAsyncThunk("post/fetch", async ({ skip=0 }) => {
-  const res = await axiosInstance.get(`/getPost?skip=${skip}`);
-  return res.data;
-});
+export const reFetchPost = createAsyncThunk(
+  "post/refetch",
+  async ({ skip }) => {
+    const res = await axiosInstance.get(`/getPost?skip=${skip}`);
+    return res.data;
+  }
+);
 export const searchPost = createAsyncThunk("post/search", async ({ term }) => {
   const res = await axiosInstance.get(`/search?term=${term}&nsfw=true`);
   return res.data;
@@ -22,7 +25,7 @@ const termslice = createSlice({
     loading: false,
     status: "idle",
     err: null,
-    limit:0
+    limit: 0,
   },
   reducers: {
     setTerm: (state, action) => {
@@ -49,7 +52,7 @@ const termslice = createSlice({
     });
     builder.addCase(fetchPost.fulfilled, (state, action) => {
       state.reasult = action.payload[0];
-      state.limit = action.payload[1]
+      state.limit = action.payload[1];
       state.loading = false;
       state.status = "ok";
     });
@@ -72,6 +75,19 @@ const termslice = createSlice({
       state.status = "failed";
     });
     //---------------- search post end ---------------------
+    // ----------------reface post start--------------------
+    builder.addCase(reFetchPost.pending, (state) => {
+      state.status = "reFetching";
+    });
+    builder.addCase(reFetchPost.fulfilled, (state, action) => {
+      state.reasult.push(...action.payload[0])
+      state.status = "ok";
+    });
+    builder.addCase(reFetchPost.rejected, (state, action) => {
+      state.err = action.error.message;
+      state.status = "failed";
+    });
+    // ----------------reface post end--------------------
   },
 });
 
@@ -84,3 +100,4 @@ export const err = (state) => state.term.err;
 export const status = (state) => state?.term?.status;
 export const termStatus = (state) => state?.term?.status;
 export const reasult = (state) => state?.term?.reasult;
+export const limit = (state) => state?.term?.limit;
